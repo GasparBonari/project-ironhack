@@ -1,0 +1,30 @@
+<div id="form">
+  <h2>New Manager registration form</h2>
+  <form action="/manager/signup" method="POST">
+ 
+    <label> Managername
+      <input type="text" name="username" placeholder="manager_name" />
+    </label>
+ 
+    <label> Email
+      <input type="email" name="email" placeholder="newManager@gmail.com" />
+    </label>
+ 
+    <label> Password
+      <input type="password" name="password" placeholder="********" />
+    </label>
+
+       <label> Password check
+      <input type="password" name="password2" placeholder="********" />
+    </label>
+ 
+    <button type="submit">Create account</button>
+ 
+    {{!-- error message will be added here --}}
+
+    {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+  {{/if}}
+
+  </form>
+</div>
