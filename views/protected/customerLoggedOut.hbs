@@ -1,0 +1,33 @@
+<h2>You have successfully logged out!</h2>
+<a href="/">Go to Home page</a>
+
+<div id="login-form">
+  <h2>Customer Log In again</h2>
+  <p>Delete value for production</p>
+  <form action="/customer/CustomerLogin" method="POST">
+
+    <label>
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        value="Ironhack"
+      />
+    </label>
+
+    <label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value="Abc123!"
+      />
+    </label>
+
+    <button type="submit">Log In</button>
+
+    {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
+  </form>
+</div>

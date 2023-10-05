@@ -1,0 +1,54 @@
+{{#if userInSession}}
+
+  <h2>Edit Customer:
+    {{userInSession.username}}</h2>
+
+  <form action="/customer/{{userInSession._id}}/edit" method="post">
+
+    <label>
+      eMail:
+      <input type="text" name="email" value="{{userInSession.email}}" />
+    </label>
+
+    <label>
+      Fullname:
+      <input type="text" name="fullname" value="{{userInSession.fullname}}" />
+    </label>
+
+    <label>
+      Street:
+      <input type="text" name="street" value="{{userInSession.street}}" />
+    </label>
+
+    <label>
+      Housenumber:
+      <input
+        type="text"
+        name="housenumber"
+        value="{{userInSession.housenumber}}"
+      />
+    </label>
+
+    <label>
+      Postcode:
+      <input type="text" name="postcode" value="{{userInSession.postcode}}" />
+    </label>
+
+    <label>
+      City:
+      <input type="text" name="city" value="{{userInSession.city}}" />
+    </label>
+
+    <label>
+      Country:
+      <input type="text" name="country" value="{{userInSession.country}}" />
+    </label>
+
+    <button type="submit">Save {{userInSession.username}}</button>
+  </form>
+
+{{else}}
+
+  <br /><p>Still no logged in user, sorry!</p>
+
+{{/if}}

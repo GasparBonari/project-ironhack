@@ -17,6 +17,8 @@ const app = express();
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
+require("./config/customerSession.config")(app);
+require("./config/managerSession.config")(app);
 
 const capitalize = require("./utils/capitalize");
 const projectName = "project-ironhack";
@@ -30,9 +32,8 @@ app.use("/", indexRoutes);
 const managerRoutes = require("./routes/Manager.routes.js");
 app.use("/manager", managerRoutes);
 
-const courierRoutes = require("./routes/Courier.routes.js");
-app.use("/courier", courierRoutes);
-
+const customerRoutes = require("./routes/customers.routes");
+app.use("/", customerRoutes);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
