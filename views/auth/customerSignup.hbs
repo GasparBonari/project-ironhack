@@ -1,0 +1,47 @@
+<div id="form">
+  <h2>Customer Sign Up</h2><p>Delete value for production. Pass: Abc123!</p>
+  <form action="/customer/customerSignup" method="POST">
+
+    <label>
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        value="Ironhack"
+      />
+    </label>
+
+    <label>
+      <input
+        type="email"
+        name="email"
+        placeholder="eMail"
+        value="ironhack@iro.com"
+      />
+    </label>
+
+    <label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value="Abc123!"
+      />
+    </label>
+
+    <label>
+      <input
+        type="password"
+        name="password2"
+        placeholder="Retype password"
+        value="Abc123!"
+      />
+    </label>
+
+    <button type="submit">Create customer account</button>
+
+    {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
+  </form>
+</div>
