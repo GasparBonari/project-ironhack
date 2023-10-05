@@ -30,6 +30,9 @@ app.use("/", indexRoutes);
 const managerRoutes = require("./routes/Manager.routes.js");
 app.use("/manager", managerRoutes);
 
+const courierRoutes = require("./routes/Courier.routes.js");
+app.use("/courier", courierRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
