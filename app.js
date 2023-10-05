@@ -17,6 +17,8 @@ const app = express();
 
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require("./config")(app);
+require("./config/customerSession.config")(app);
+require("./config/managerSession.config")(app);
 
 const capitalize = require("./utils/capitalize");
 const projectName = "name-of-project";
@@ -27,9 +29,11 @@ app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 
-const authRoutes = require("./routes/auth.routes");
-app.use("/auth", authRoutes);
+//const authRoutes = require("./routes/auth.routes");
+//app.use("/auth", authRoutes);
 
+const customerRoutes = require("./routes/customers.routes");
+app.use("/", customerRoutes);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

@@ -1,0 +1,33 @@
+<h2>Your account has been successfully created!</h2>
+<p>You can now login and start ordring food on our system</p>
+
+<div id="login-form">
+  <h2>Customer Log In</h2>
+  <p>Delete value for production</p>
+  <form action="/customer/CustomerLogin" method="POST">
+
+    <label>
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        value="Ironhack"
+      />
+    </label>
+
+    <label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value="Abc123!"
+      />
+    </label>
+
+    <button type="submit">Log In</button>
+
+    {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
+  </form>
+</div>

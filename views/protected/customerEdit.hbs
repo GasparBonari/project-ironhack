@@ -1,0 +1,29 @@
+<h2>Edit Customer: {{customer.title}}</h2>
+
+<form action="/customers/{{movie._id}}/edit" method="post">
+
+  <label>
+    Title:
+    <input type="text" name="title" value="{{customer.title}}" />
+  </label>
+
+  <label>
+    Genre:
+    <input type="text" name="genre" value="{{customer.genre}}" />
+  </label>
+
+  <label>
+    Plot:
+    <input type="text" name="plot" value="{{customer.plot}}" />
+  </label>
+
+  <label for="cast-select">Cast:</label>
+
+  <select name="cast" multiple>
+    {{#each celebrities}}
+      <option value="{{this._id}}" selected="selected">{{this.name}}</option>
+    {{/each}}
+  </select>
+
+  <button type="submit">Save {{movie.title}}</button>
+</form>
