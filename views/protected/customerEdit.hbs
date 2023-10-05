@@ -1,29 +1,54 @@
-<h2>Edit Customer: {{customer.title}}</h2>
+{{#if userInSession}}
 
-<form action="/customers/{{movie._id}}/edit" method="post">
+  <h2>Edit Customer:
+    {{userInSession.username}}</h2>
 
-  <label>
-    Title:
-    <input type="text" name="title" value="{{customer.title}}" />
-  </label>
+  <form action="/customer/{{userInSession._id}}/edit" method="post">
 
-  <label>
-    Genre:
-    <input type="text" name="genre" value="{{customer.genre}}" />
-  </label>
+    <label>
+      eMail:
+      <input type="text" name="email" value="{{userInSession.email}}" />
+    </label>
 
-  <label>
-    Plot:
-    <input type="text" name="plot" value="{{customer.plot}}" />
-  </label>
+    <label>
+      Fullname:
+      <input type="text" name="fullname" value="{{userInSession.fullname}}" />
+    </label>
 
-  <label for="cast-select">Cast:</label>
+    <label>
+      Street:
+      <input type="text" name="street" value="{{userInSession.street}}" />
+    </label>
 
-  <select name="cast" multiple>
-    {{#each celebrities}}
-      <option value="{{this._id}}" selected="selected">{{this.name}}</option>
-    {{/each}}
-  </select>
+    <label>
+      Housenumber:
+      <input
+        type="text"
+        name="housenumber"
+        value="{{userInSession.housenumber}}"
+      />
+    </label>
 
-  <button type="submit">Save {{movie.title}}</button>
-</form>
+    <label>
+      Postcode:
+      <input type="text" name="postcode" value="{{userInSession.postcode}}" />
+    </label>
+
+    <label>
+      City:
+      <input type="text" name="city" value="{{userInSession.city}}" />
+    </label>
+
+    <label>
+      Country:
+      <input type="text" name="country" value="{{userInSession.country}}" />
+    </label>
+
+    <button type="submit">Save {{userInSession.username}}</button>
+  </form>
+
+{{else}}
+
+  <br /><p>Still no logged in user, sorry!</p>
+
+{{/if}}

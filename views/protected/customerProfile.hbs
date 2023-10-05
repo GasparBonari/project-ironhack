@@ -1,11 +1,11 @@
-{{! views/users/user-profile.hbs }}
 
 {{#if userInSession}}
   <h1>Welcome to your profile page, {{userInSession.username}}!</h1>
   <h2>Your {{userInSession.username}} account details!</h2>
 <hr />
    <a href="/customer/{{userInSession._id}}/edit">Edit {{userInSession.username}} details</a>
-   <p>Id: {{userInSession._id}}</p>
+   <p>Id: {{userInSession._id}} (remove this for production)</p>
+   <p>Hash😁: {{userInSession.passwordHash}} (remove this for production)</p>
   <hr />
   
   <p>eMail: {{userInSession.email}}</p>
@@ -13,6 +13,7 @@
   <p>Adress:
     {{userInSession.street}}
     {{userInSession.housenumber}} - 
+    {{userInSession.postcode}}
     {{userInSession.city}}
     {{userInSession.country}}
   <p>Order history:
@@ -28,6 +29,6 @@
 
 {{else}}
 
-  <br /><p>Still no logged in user, sorry!</p>
+  <br /><p>You need to login to access this page!</p>
 
 {{/if}}

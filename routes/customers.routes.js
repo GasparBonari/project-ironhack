@@ -63,7 +63,7 @@ router.post("/customer/customerLogin", (req, res, next) => {
           " User not found and/or incorrect password, please try again! "
         );
 
-        res.status(500).render("auth/customerLogin", {
+        res.status(500).render("./auth/customerLogin", {
           errorMessage:
             "User not found and/or incorrect password, please try again!",
         });
@@ -145,7 +145,7 @@ router.post("/customer/customerSignup", (req, res, next) => {
       if (error) {
         res.render("auth/customerSignup", {
           errorMessage:
-            " This username or email is already taken. Please login if you already have an account or try again with an unique username and email!",
+            " This username or email is already taken. Please login if you already have an account or try again with a free username and email!",
         });
       } else if (error.code === 11000) {
         console.log(
@@ -161,7 +161,7 @@ router.post("/customer/customerSignup", (req, res, next) => {
     }); // close .catch()
 }); // close .post()
 
-router.get("/customer/customerList", (req, res, next) => {
+router.get("/customer/customerList", isLoggedIn, (req, res, next) => {
   Customer.find()
     .then((allCustomer) => {
       res.render("protected/customerList", { customer: allCustomer });
@@ -178,6 +178,7 @@ router.get("/customer/customerProfile", isLoggedIn, (req, res) => {
   });
 });
 
+/*
 router.get("/customer/:CustomerId", (req, res, next) => {
   const { CustomerId } = req.params;
 
@@ -191,6 +192,7 @@ router.get("/customer/:CustomerId", (req, res, next) => {
       next(error);
     });
 });
+*/
 
 router.get("/customer/:CustomerId/edit", (req, res, next) => {
   const { CustomerId } = req.params;
@@ -199,8 +201,7 @@ router.get("/customer/:CustomerId/edit", (req, res, next) => {
     .then((CustomerToEdit) => {
       Customer.find().then((customer) => {
         res.render("protected/customerEdit", {
-          Customer: CustomerToEdit,
-          customer,
+          userInSession: req.session.currentUser,
         });
       });
     })
@@ -209,14 +210,37 @@ router.get("/customer/:CustomerId/edit", (req, res, next) => {
 
 router.post("/customer/:CustomerId/edit", (req, res, next) => {
   const { CustomerId } = req.params;
-  const { name, occupation, catchPhrase } = req.body;
+  const {
+    username,
+    email,
+    password,
+    fullname,
+    street,
+    housenumber,
+    postcode,
+    city,
+    country,
+  } = req.body;
 
   Customer.findByIdAndUpdate(
     CustomerId,
-    { name, occupation, catchPhrase },
+    {
+      username,
+      email,
+      password,
+      fullname,
+      street,
+      housenumber,
+      postcode,
+      city,
+      country,
+    },
     { new: true }
   )
-    .then((updatedCustomer) => res.redirect(`/customer/${updatedCustomer.id}`))
+    .then((updatedCustomer) => {
+      req.session.currentUser = updatedCustomer;
+      res.redirect("/customer/customerProfile");
+    })
     .catch((error) => next(error));
 });
 
