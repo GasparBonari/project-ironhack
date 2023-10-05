@@ -20,17 +20,12 @@ require("./config")(app);
 require("./config/customerSession.config")(app);
 require("./config/managerSession.config")(app);
 
-const capitalize = require("./utils/capitalize");
-const projectName = "project-ironhack";
-
-app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
-
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 
-// const authRoutes = require("./routes/auth.routes");
-// app.use("/auth", authRoutes);
+const managerRoutes = require("./routes/Manager.routes.js");
+app.use("/manager", managerRoutes);
 
 const customerRoutes = require("./routes/customers.routes");
 app.use("/", customerRoutes);
