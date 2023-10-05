@@ -36,22 +36,42 @@ router.post("/customer/customerLogin", (req, res, next) => {
     .then((customer) => {
       if (!customer) {
         console.log("Login failed, account not registered. ");
-        res.render("/customer/customerLogin", {
-          errorMessage: "User not found and/or incorrect password.",
+        return res.render("./auth/customerLogin", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
         });
-        return;
       } else if (bcryptjs.compareSync(password, customer.passwordHash)) {
         //******* SAVE THE USER IN THE SESSION ********//
         req.session.currentUser = customer;
         res.redirect("/customer/customerProfile");
       } else {
         console.log("Incorrect password. ");
-        res.render("/customer/customerLogin", {
-          errorMessage: "User not found and/or incorrect password.",
+        res.render("./auth/customerLogin", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
         });
       }
     })
-    .catch((err) => next(err));
+    .catch((error) => {
+      if (error) {
+        res.render("./auth/customerLogin", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
+        });
+      } else if (error.code === 11000) {
+        console.log(
+          " User not found and/or incorrect password, please try again! "
+        );
+
+        res.status(500).render("auth/customerLogin", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
+        });
+      } else {
+        console.log("next");
+        next(error);
+      }
+    }); // close .catch()
 });
 
 // Customer Signup
@@ -123,7 +143,10 @@ router.post("/customer/customerSignup", (req, res, next) => {
     })
     .catch((error) => {
       if (error) {
-        res.render("auth/customerSignup", { errorMessage: error.message });
+        res.render("auth/customerSignup", {
+          errorMessage:
+            " This username or email is already taken. Please login if you already have an account or try again with an unique username and email!",
+        });
       } else if (error.code === 11000) {
         console.log(
           " Username and email need to be unique. Either username or email is already used. "
