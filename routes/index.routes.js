@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Restaurant = require('../models/Restaurant.model'); // Adjust the path accordingly
 
-// Define a route to render the index.hbs template
+// Render the index.hbs template
 router.get('/', async (req, res) => {
   try {
     // Fetch restaurants from MongoDB
@@ -12,6 +12,17 @@ router.get('/', async (req, res) => {
     res.render('index', { restaurants });
   } catch (error) {
     console.error('Error fetching data from MongoDB:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Display individual restaurant page
+router.get('/restaurants/:id', async (req, res) => {
+  try {
+    const restaurant = await Restaurant.findById(req.params.id);
+    res.render('restaurantPage', { restaurant });
+  } catch (err) {
+    console.error(err);
     res.status(500).send('Internal Server Error');
   }
 });
