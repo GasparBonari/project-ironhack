@@ -29,11 +29,11 @@ app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 
-const authRoutes = require("./routes/auth.routes");
-app.use("/auth", authRoutes);
-
 const managerRoutes = require("./routes/Manager.routes.js");
 app.use("/manager", managerRoutes);
+
+const courierRoutes = require("./routes/Courier.routes.js");
+app.use("/courier", courierRoutes);
 
 const customerRoutes = require("./routes/customers.routes");
 app.use("/", customerRoutes);

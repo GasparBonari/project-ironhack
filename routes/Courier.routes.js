@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = new Router();
-const Manager = require('../models/Courier.models.js');
+const Courier = require('../models/Courier.models.js');
 const mongoose = require('mongoose');
 // require auth middleware
 //const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
@@ -47,7 +47,7 @@ const { username, email, password, password2 } = req.body;
     .then(userFromDB => {
       userFromDB.save()
       console.log('Newly created user is: ', userFromDB);
-      res.redirect(`/manager/courierNew/${userFromDB.username}`);
+      res.redirect(`/courier/courierNew/${userFromDB.username}`);
     })
     .catch(error => {
       if (error instanceof mongoose.Error.ValidationError) {
