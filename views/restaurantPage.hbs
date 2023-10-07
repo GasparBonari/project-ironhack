@@ -11,18 +11,17 @@
   <div class="mt-4">
     <h2>Menu</h2>
     <div class="row">
-        {{#each restaurant.menu}}
-        <div class="col-md-4 mb-3">
-            <div class="card">
-            <img src="{{image}}" alt="{{name}} Image" class="card-img-top">
+      {{#each restaurant.menu}}
+        <div class="mb-3">
+          <div class="card d-flex flex-row">
+            <img src="{{image}}" alt="{{name}} Image" class="card-img-top" style="width: 130px">
             <div class="card-body">
-                <h5 class="card-title">{{name}}</h5>
-                <p class="card-text">Price: ${{price}}</p>
-                <!-- Add more details if needed -->
+              <h5 class="card-title">{{name}}</h5>
+              <p class="card-text">Price: ${{price}}</p>
             </div>
-            </div>
+          </div>
         </div>
-        {{/each}}
+      {{/each}}
     </div>
   </div>
 </div>
