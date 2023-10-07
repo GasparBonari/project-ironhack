@@ -30,9 +30,6 @@ app.use("/manager", managerRoutes);
 const courierRoutes = require("./routes/Courier.routes.js");
 app.use("/courier", courierRoutes);
 
-const managerRoutes = require("./routes/Manager.routes.js");
-app.use("/manager", managerRoutes);
-
 const customerRoutes = require("./routes/customers.routes");
 app.use("/", customerRoutes);
 
