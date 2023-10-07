@@ -1,2 +1,21 @@
-<h1>{{appTitle}} 🚀</h1>
-<p>Welcome Ironhacker!</p>
+<ul class="list-group" style="list-style: none;">
+  {{#each restaurants}}
+    <li class="mb-3" style="cursor: pointer;">
+      <a href="/restaurants/{{_id}}" class="text-decoration-none">
+        <div class="card border-dark shadow">
+          <div class="row g-0">
+            <div class="col-md-3">
+              <img src="{{image}}" alt="{{name}} Image" class="img-fluid rounded">
+            </div>
+            <div class="col-md-9">
+              <div class="card-body">
+                <h2 class="card-title">{{name}}</h2>
+                <p class="card-text">{{address}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </li>
+  {{/each}}
+</ul>
