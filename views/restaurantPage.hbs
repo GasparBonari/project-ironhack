@@ -1,27 +1,44 @@
-<div class="container mt-4">
-    
-  <div class="text-center">
-    <img src="{{restaurant.image}}" alt="{{restaurant.name}} Image" class="img-fluid rounded">
-  </div>
+<div class="row">
+  <!-- Menu -->
+  <div class="col-md-8">
 
-  <div class="mt-4">
-    <h1>{{restaurant.name}}</h1>
-  </div>
+    <div class="d-flex flex-row justify-content-between">
+      <h2>Menu</h2>
 
-  <div class="mt-4">
-    <h2>Menu</h2>
+      <div class="text-left mt-3">
+        <a href="/" class="btn btn-secondary">Back to Restaurants</a>
+      </div>
+    </div>
+
     <div class="row">
       {{#each restaurant.menu}}
         <div class="mb-3">
-          <div class="card d-flex flex-row">
+          <div class="card d-flex flex-row align-items-md-center">
             <img src="{{image}}" alt="{{name}} Image" class="card-img-top" style="width: 130px">
             <div class="card-body">
               <h5 class="card-title">{{name}}</h5>
               <p class="card-text">Price: ${{price}}</p>
             </div>
+            <button onclick="addToCart('{{name}}', {{price}})">Cart</button>
           </div>
         </div>
       {{/each}}
     </div>
   </div>
+
+  <!-- Cart -->
+  <div class="col-md-4 border rounded p-3">
+    <h2>Cart</h2>
+    <ul id="cart-list" class="list-unstyled"></ul>
+
+    <!-- Checkout button and Total section -->
+    <div class="text-right mt-3">
+      <button class="btn btn-primary" onclick="checkout()">Checkout</button>
+    </div>
+
+    <div class="mt-3">
+      <h4>Total: $<span id="totalAmount">0.00</span></h4>
+    </div>
+  </div>
+
 </div>
