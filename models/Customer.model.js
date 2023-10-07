@@ -22,6 +22,11 @@ const customerSchema = new Schema(
       lowercase: true,
       trim: true,
     },
+    role: {
+      type: String,
+      required: true,
+      default: 'customer',
+    },
     fullname: {
       type: String,
       //required: true,

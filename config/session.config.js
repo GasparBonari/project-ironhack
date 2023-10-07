@@ -25,7 +25,7 @@ module.exports = (app) => {
       }, // ADDED code below !!!
       store: MongoStore.create({
         mongoUrl:
-          process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/project2",
+          process.env.MONGODB_URI || "mongodb+srv://projectfood321:Ironhack321@cluster0.fmnd3pc.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp",
 
         // ttl => time to live
         // ttl: 60 * 60 * 24 // 60sec * 60min * 24h => 1 day
