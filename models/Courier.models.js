@@ -16,6 +16,11 @@ const courierSchema = new Schema(
       lowercase: true,
       trim: true
     },
+    role: {
+      type: String,
+      required: true,
+      default: 'courier',
+    },   
     passwordHash: {
       type: String,
       required: [true, 'Password is required.']
