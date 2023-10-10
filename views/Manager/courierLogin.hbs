@@ -1,0 +1,27 @@
+<div id="login-form">
+  <h2>Courier Log In</h2>
+  <form action="/manager/courierLogin" method="POST">
+
+    <label>
+      <input
+        type="text"
+        name="username"
+        placeholder="courier_name"
+      />
+    </label>
+
+    <label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Your password"
+      />
+    </label>
+
+    <button type="submit">Log In</button>
+
+    {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
+  </form>
+</div>

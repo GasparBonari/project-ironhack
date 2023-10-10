@@ -16,6 +16,11 @@ const managerSchema = new Schema(
       lowercase: true,
       trim: true
     },
+    role: {
+      type: String,
+      required: true,
+      default: 'manager',
+    },
     passwordHash: {
       type: String,
       required: [true, 'Password is required.']

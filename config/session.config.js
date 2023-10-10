@@ -1,6 +1,7 @@
 // config/session.config.js
 
 // require session
+const express = require("express");
 const session = require("express-session");
 
 // ADDED: require mongostore
