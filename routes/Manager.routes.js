@@ -76,11 +76,11 @@ const { username, password } = req.body;
 });
 
 // GET route ==> to display the signup form to Manager
-router.get('/signup', managerLoggedout,(req, res) => res.render('manager/managerCreate.hbs'));
+router.get('/managerCreate', managerLoggedout,(req, res) => res.render('manager/managerCreate.hbs'));
 
 
 // POST route ==> to process form data
-router.post('/signup', (req, res, next) => {
+router.post('/managerCreate', (req, res, next) => {
 console.log("The form data: ", req.body);
  
 const { username, email, password, password2 } = req.body;
