@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const router = new Router();
 const Manager = require('../models/Manager.models.js');
+const Restaurant = require('../models/Restaurant.model.js');
+
 const mongoose = require('mongoose');
 // require auth middleware
 //const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
@@ -71,5 +73,7 @@ router.get('/managerNew/:username', (req, res) => {
     res.render('manager/managerNew.hbs', { username });
   });
 
- 
+ // Partner routes
+ router.get('/partnerlist', (req, res) => res.render('./Manager/partnerList'));
+
 module.exports = router;

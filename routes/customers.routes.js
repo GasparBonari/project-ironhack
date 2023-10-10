@@ -12,12 +12,12 @@ const Order = require("../models/Order.model.js");
 const { isLoggedIn, isLoggedOut } = require("../middleware/route-guard.js");
 
 // GET /auth/login
-router.get("/customer/customerLogin", isLoggedOut, (req, res) => {
+router.get("/customerLogin", isLoggedOut, (req, res) => {
   res.render("auth/customerLogin");
 });
 
 // POST /auth/login
-router.post("/customer/customerLogin", (req, res, next) => {
+router.post("/customerLogin", (req, res, next) => {
   console.log("SESSION =====> ", req.session);
 
   const { username, password } = req.body;
@@ -75,11 +75,11 @@ router.post("/customer/customerLogin", (req, res, next) => {
 });
 
 // Customer Signup
-router.get("/customer/customerSignup", isLoggedOut, (req, res) =>
+router.get("/customerSignup", isLoggedOut, (req, res) =>
   res.render("auth/customerSignup")
 );
 
-router.post("/customer/customerSignup", (req, res, next) => {
+router.post("/customerSignup", (req, res, next) => {
   // console.log("The form data: ", req.body);
   const { username, email, password, password2 } = req.body;
   //return Customer.create({ username, email, password, password2 });
@@ -161,7 +161,7 @@ router.post("/customer/customerSignup", (req, res, next) => {
     }); // close .catch()
 }); // close .post()
 
-router.get("/customer/customerList", isLoggedIn, (req, res, next) => {
+router.get("/customerList", isLoggedIn, (req, res, next) => {
   Customer.find()
     .then((allCustomer) => {
       res.render("protected/customerList", { customer: allCustomer });
@@ -172,7 +172,7 @@ router.get("/customer/customerList", isLoggedIn, (req, res, next) => {
     });
 });
 
-router.get("/customer/customerProfile", isLoggedIn, (req, res) => {
+router.get("/customerProfile", isLoggedIn, (req, res) => {
   res.render("protected/customerProfile", {
     userInSession: req.session.currentUser,
   });
@@ -194,7 +194,7 @@ router.get("/customer/:CustomerId", (req, res, next) => {
 });
 */
 
-router.get("/customer/:CustomerId/edit", (req, res, next) => {
+router.get("/:CustomerId/edit", (req, res, next) => {
   const { CustomerId } = req.params;
 
   Customer.findById(CustomerId)
@@ -208,7 +208,7 @@ router.get("/customer/:CustomerId/edit", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.post("/customer/:CustomerId/edit", (req, res, next) => {
+router.post("/:CustomerId/edit", (req, res, next) => {
   const { CustomerId } = req.params;
   const {
     username,
@@ -245,7 +245,7 @@ router.post("/customer/:CustomerId/edit", (req, res, next) => {
 });
 
 router.post(
-  "/customer/customerProfile/:CustomerId/delete",
+  "/customerProfile/:CustomerId/delete",
   (req, res, next) => {
     const { CustomerId } = req.params;
     Customer.findByIdAndDelete(CustomerId)
@@ -259,7 +259,7 @@ router.post(
   }
 );
 
-router.post("/customer/customerLogout", isLoggedIn, (req, res, next) => {
+router.post("/customerLogout", isLoggedIn, (req, res, next) => {
   req.session.destroy((err) => {
     if (err) next(err);
     res.render("protected/customerLoggedOut");

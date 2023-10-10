@@ -27,10 +27,10 @@ const managerRoutes = require("./routes/Manager.routes.js");
 app.use("/manager", managerRoutes);
 
 const courierRoutes = require("./routes/Courier.routes.js");
-app.use("/courier", courierRoutes);
+app.use("/manager", courierRoutes);
 
 const customerRoutes = require("./routes/customers.routes");
-app.use("/", customerRoutes);
+app.use("/customer", customerRoutes);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
