@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const router = new Router();
 const Manager = require('../models/Manager.models.js');
+const Restaurant = require('../models/Restaurant.model.js');
+
 const mongoose = require('mongoose');
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
@@ -151,6 +153,8 @@ router.get('/managerNew/:username', (req, res) => {
       res.render("manager/managerLogin");
     });
   });
- 
 
+ 
 module.exports = router;
+
+
