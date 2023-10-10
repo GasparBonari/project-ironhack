@@ -45,10 +45,6 @@ function updateTotalAmount() {
   totalAmountElement.textContent = totalAmount;
 }
 
-function checkout() {
-  alert("Check out");
-}
-
 function removeFromCart(index) {
   // Remove item from the cart based on the index
   cartItems.splice(index, 1);

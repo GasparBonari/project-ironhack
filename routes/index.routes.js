@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Restaurant = require('../models/Restaurant.model'); // Adjust the path accordingly
+const Restaurant = require('../models/Restaurant.model.js');
+const Customer = require("../models/Customer.model.js");
 
 // Render the index.hbs template
 router.get('/', async (req, res) => {
@@ -20,7 +21,7 @@ router.get('/', async (req, res) => {
 router.get('/restaurants/:id', async (req, res) => {
   try {
     const restaurant = await Restaurant.findById(req.params.id);
-    res.render('restaurantPage', { restaurant });
+    res.render('restaurantPage', { restaurant, userInSession: req.session.currentUser });
   } catch (err) {
     console.error(err);
     res.status(500).send('Internal Server Error');
