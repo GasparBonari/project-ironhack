@@ -178,27 +178,7 @@ router.get("/customerProfile", isLoggedIn, (req, res) => {
   });
 });
 
-<<<<<<< HEAD
 router.get("/customer/:CustomerId/edit", (req, res, next) => {
-=======
-/*
-router.get("/customer/:CustomerId", (req, res, next) => {
-  const { CustomerId } = req.params;
-
-  Customer.findById(CustomerId)
-    .then((theCustomer) =>
-      res.render("protected/customerProfile", { Customer: theCustomer })
-    )
-    .catch((error) => {
-      console.log("Error while getting customer from DB: ", error);
-      // call the middleware-error to display error page to the user
-      next(error);
-    });
-});
-*/
-
-router.get("/:CustomerId/edit", (req, res, next) => {
->>>>>>> origin/main
   const { CustomerId } = req.params;
 
   Customer.findById(CustomerId)
