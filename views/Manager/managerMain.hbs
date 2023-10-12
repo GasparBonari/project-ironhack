@@ -1,2 +1,36 @@
-
+{{#if userInSession}}
+<head>
  <h2>This is your page, {{ userInSession.username }}!</h2>
+</head>
+<body>
+<p>
+name: {{userInSession.username}}<br>
+Id: {{userInSession._id}}<br>
+</p>
+
+<p>eMail: {{userInSession.email}}</p><br>
+<p>
+   Role: {{userInSession.role}}<br>
+</p>
+  <p>
+    Adress:<br>
+    Country: {{userInSession.country}}<br>
+    City: {{userInSession.city}}<br>
+  </p>
+</body>
+
+
+<form action="/manager/{{userInSession._id}}/edit" method="POST">
+  <button>Edit {{userInSession.username}} account</button>
+</form>
+
+<form action="/manager/managerMain/{{userInSession._id}}/delete" method="POST">
+  <button>Delete {{userInSession.username}} account</button>
+</form>
+
+ {{else}}
+
+  <br /><p>You need to login to access this page!</p>
+
+{{/if}}
+

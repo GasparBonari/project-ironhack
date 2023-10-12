@@ -125,6 +125,63 @@ router.get('/courierNew/:username', (req, res) => {
   res.render('Manager/courierNew', { username });
 });
 
+// edit/delete Courier profile:
+
+router.get("/courier/:CourierId/edit", courierLoggedin, (req, res, next) => {
+  const { CourierId } = req.params;
+
+  Courier.findById(CourierId)
+    .then((CourierToEdit) => {
+      Courier.find().then((courier) => {
+        res.render("Manager/courierEdit", {
+          userInSession: req.session.currentUser,
+          managerToEdit: CourierToEdit,
+        });
+      });
+    })
+    .catch((error) => next(error));
+});
+
+router.post("/courier/:CourierId/edit", courierLoggedin, (req, res, next) => {
+  const { CourierId } = req.params;
+  const {
+    username,
+    email,
+    birthday,
+    country,
+    city
+  } = req.body;
+
+  Courier.findByIdAndUpdate(
+    CourierId,
+    {
+      username,
+      email,
+      birthday,
+      country,
+      city
+    },
+    { new: true }
+  )
+    .then((updatedCourier) => {
+      req.session.currentUser = updatedCourier;
+      res.redirect(`/manager/courier/${CourierId}/edit`);
+    })
+    .catch((error) => next(error));
+});
+
+router.post("/courierMain/:CourierId/delete", courierLoggedin, (req, res, next) => {
+  const { CourierId } = req.params; 
+  Courier.findByIdAndDelete(CourierId)
+    .then(() => {
+      req.session.destroy((err) => {
+        if (err) next(err);
+        res.render("Manager/courierDeleted");
+      });
+    })
+    .catch((error) => next(error));
+});
+
 // POST route to log out a Courier
 router.post('/courierLogout', courierLoggedin, (req, res, next) => {
   req.session.destroy((err) => {
