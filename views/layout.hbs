@@ -10,12 +10,12 @@
   </head>
 
   <body>
-    <p sytle="color: orange;">Temporaly menu for development</p>
+    <p style="color: orange;">Temporaly menu for development</p>
 
     <nav style="float: left;">
-      <a href="/manager/managerNew">Manager Log in</a><a> | </a>
-      <a href="/manager/manager">Manager sign up</a><a> | </a>
-      <a href="/manager/managerProfile">Manager Profile</a><a> | </a>
+      <a href="/manager/managerLogin">Manager Log in</a><a> | </a>
+      <a href="/manager/managerCreate">Manager sign up</a><a> | </a>
+      <a href="/manager/managerMain">Manager Profile</a><a> | </a>
       <form
         style="float: right;position: relative;"
         id="logout-form"
@@ -26,7 +26,22 @@
         <button>Manager Logout</button>
       </form>
     </nav>
-
+<p>
+    <nav style="float: left;">
+      <a href="/manager/courierLogin">Courier Log in</a><a> | </a>
+      <a href="/manager/courierCreate">Courier sign up</a><a> | </a>
+      <a href="/manager/courierMain">Courier Profile</a><a> | </a>
+      <form
+        style="float: right;position: relative;"
+        id="logout-form"
+        class="dropdown"
+        action="/manager/courierLogout"
+        method="POST"
+      >
+        <button>Courier Logout</button>
+      </form>
+    </nav>
+</p>
     <nav style="float: left;position: relative;left: 15%;">
       <a class="logo" href="/"><img
           src="/images/logo1.gif"

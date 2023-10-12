@@ -1,19 +1,86 @@
 const { Router } = require('express');
 const router = new Router();
 const Manager = require('../models/Manager.models.js');
+const Restaurant = require('../models/Restaurant.model.js');
+
 const mongoose = require('mongoose');
-// require auth middleware
-//const { isLoggedIn, isLoggedOut } = require('../middleware/route-guard.js');
-
-// GET route ==> to display the signup form to Manager
-router.get('/signup', (req, res) => res.render('manager/managerCreate.hbs'));
-
-// the setup code skipped
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
 
+// middleware
+const { managerLoggedin, managerLoggedout } = require("../middleware/route-guard.js");
+
+// GET /manager/login
+router.get("/managerLogin", managerLoggedout, (req, res) => {
+  res.render("Manager/managerLogin");
+});
+
+// POST /manager/login
+router.post("/ManagerLogin", (req, res, next) => {
+  console.log('here it was hit')
+  console.log("SESSION =====> ", req.session);
+
+const { username, password } = req.body;
+
+  // Check that username and password are provided
+  if (username === "" || password === "") {
+    res.render("Manager/managerLogin", {
+      errorMessage:
+        "All fields are mandatory. Please provide username and password.",
+    });
+    return;
+  }
+
+  // Search the database for a user with the username submitted in the form
+  Manager.findOne({ username })
+    .then((manager) => {
+      if (!manager) {
+        console.log("Login failed, account not registered. ");
+        return res.render("Manager/managerLogin", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
+        });
+      } else if (bcryptjs.compareSync(password, manager.passwordHash)) {
+        //******* SAVE THE USER IN THE SESSION ********//
+        req.session.currentUser = manager;
+        console.log("Session data after login:", req.session);
+        res.redirect("/manager/managerMain");
+      } else {
+        console.log("Incorrect password. ");
+        res.render("Manager/managerLogin", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
+        });
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        res.render("Manager/managerLogin", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
+        });
+      } else if (error.code === 11000) {
+        console.log(
+          "User not found and/or incorrect password, please try again! "
+        );
+
+        res.status(500).render("Manager/managerLogin", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
+        });
+      } else {
+        console.log("next");
+        next(error);
+      }
+    }); // close .catch()
+});
+
+// GET route ==> to display the signup form to Manager
+router.get('/managerCreate', managerLoggedout,(req, res) => res.render('manager/managerCreate.hbs'));
+
+
 // POST route ==> to process form data
-router.post('/signup', (req, res, next) => {
+router.post('/managerCreate', (req, res, next) => {
 console.log("The form data: ", req.body);
  
 const { username, email, password, password2 } = req.body;
@@ -65,11 +132,86 @@ const { username, email, password, password2 } = req.body;
     });
 });
 
+
+
+
+router.get("/ManagerMain", managerLoggedin, (req, res) => {
+  res.render("Manager/managerMain", {
+    userInSession: req.session.currentUser,
+  });
+});
+
 // GET route for managerNew
 router.get('/managerNew/:username', (req, res) => {
     const { username } = req.params;
-    res.render('manager/managerNew.hbs', { username });
+    res.render('Manager/managerNew', { username });
+  });
+
+  // edit/delete Manager profile:
+
+  router.get("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
+    const { ManagerId } = req.params;
+  
+    Manager.findById(ManagerId)
+      .then((ManagerToEdit) => {
+        Manager.find().then((manager) => {
+          res.render("Manager/managerEdit", {
+            userInSession: req.session.currentUser,
+            managerToEdit: ManagerToEdit,
+          });
+        });
+      })
+      .catch((error) => next(error));
+  });
+  
+  router.post("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
+    const { ManagerId } = req.params;
+    const {
+      username,
+      email,
+      birthday,
+      country,
+      city
+    } = req.body;
+  
+    Manager.findByIdAndUpdate(
+      ManagerId,
+      {
+        username,
+        email,
+        birthday,
+        country,
+        city
+      },
+      { new: true }
+    )
+      .then((updatedManager) => {
+        req.session.currentUser = updatedManager;
+        res.redirect(`/manager/${ManagerId}/edit`);
+      })
+      .catch((error) => next(error));
+  });
+  
+  router.post("/managerMain/:ManagerId/delete", managerLoggedin, (req, res, next) => {
+    const { ManagerId } = req.params; 
+    Manager.findByIdAndDelete(ManagerId)
+      .then(() => {
+        req.session.destroy((err) => {
+          if (err) next(err);
+          res.render("Manager/managerDeleted");
+        });
+      })
+      .catch((error) => next(error));
+  });
+  // Route for Manager logOut:
+  router.post("/managerLogout", managerLoggedin, (req, res, next) => {
+    req.session.destroy((err) => {
+      if (err) next(err);
+      res.render("manager/managerLogin");
+    });
   });
 
  
 module.exports = router;
+
+

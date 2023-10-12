@@ -16,14 +16,33 @@ const managerSchema = new Schema(
       lowercase: true,
       trim: true
     },
+    role: {
+      type: String,
+      required: true,
+      default: 'manager',
+    },
     passwordHash: {
       type: String,
       required: [true, 'Password is required.']
+    },
+    birthday: {
+      type: Date, 
+      required: [false, 'Birthday is not required.'],
+    },
+    country: {
+      type: String,
+      required: [false, 'Country is not required.'],
+    },
+    city: {
+      type: String,
+      required: [false, 'City is not required.'],
     }
   },
   {
     timestamps: true
   }
+  
 );
  
-module.exports = model('Manager', managerSchema);
+const Manager = model('Manager', managerSchema);
+module.exports = Manager;
