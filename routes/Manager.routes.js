@@ -149,9 +149,30 @@ router.post("/managerCreate", (req, res, next) => {
 });
 
 router.get("/ManagerMain", isManagerAndLoggedIn, (req, res) => {
-  res.render("Manager/managerMain", {
-    userInSession: req.session.currentUser,
-  });
+  res
+    .render("Manager/managerMain", {
+      userInSession: req.session.currentUser,
+    })
+    .catch((error) => {
+      if (error) {
+        res.render("Manager/requireManager", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
+        });
+      } else if (error.code === 11000) {
+        console.log(
+          " User not found and/or incorrect password, please try again! "
+        );
+
+        res.status(500).render("Manager/requireManager", {
+          errorMessage:
+            "User not found and/or incorrect password, please try again!",
+        });
+      } else {
+        console.log("next");
+        next(error);
+      }
+    }); // close .catch();
 });
 
 // GET route for managerNew

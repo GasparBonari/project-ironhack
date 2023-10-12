@@ -44,7 +44,7 @@ router.post("/customerLogin", (req, res, next) => {
         //******* SAVE THE USER IN THE SESSION ********//
 
         req.session.currentUser = customer;
-        res.redirect("/customer/customerProfile");
+        res.redirect("/");
       } else {
         console.log("Incorrect password. ");
         res.render("./auth/customerLogin", {
