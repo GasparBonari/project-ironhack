@@ -147,6 +147,63 @@ router.get('/managerNew/:username', (req, res) => {
     res.render('Manager/managerNew', { username });
   });
 
+  // edit/delete Manager profile:
+
+  router.get("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
+    const { ManagerId } = req.params;
+  
+    Manager.findById(ManagerId)
+      .then((ManagerToEdit) => {
+        Manager.find().then((manager) => {
+          res.render("Manager/managerEdit", {
+            userInSession: req.session.currentUser,
+            managerToEdit: ManagerToEdit,
+          });
+        });
+      })
+      .catch((error) => next(error));
+  });
+  
+  router.post("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
+    const { ManagerId } = req.params;
+    const {
+      username,
+      email,
+      birthday,
+      country,
+      city
+    } = req.body;
+  
+    Manager.findByIdAndUpdate(
+      ManagerId,
+      {
+        username,
+        email,
+        birthday,
+        country,
+        city
+      },
+      { new: true }
+    )
+      .then((updatedManager) => {
+        req.session.currentUser = updatedManager;
+        res.redirect(`/manager/${ManagerId}/edit`);
+      })
+      .catch((error) => next(error));
+  });
+  
+  router.post("/managerMain/:ManagerId/delete", managerLoggedin, (req, res, next) => {
+    const { ManagerId } = req.params; 
+    Manager.findByIdAndDelete(ManagerId)
+      .then(() => {
+        req.session.destroy((err) => {
+          if (err) next(err);
+          res.render("Manager/managerDeleted");
+        });
+      })
+      .catch((error) => next(error));
+  });
+  // Route for Manager logOut:
   router.post("/managerLogout", managerLoggedin, (req, res, next) => {
     req.session.destroy((err) => {
       if (err) next(err);

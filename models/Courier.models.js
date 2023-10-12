@@ -24,6 +24,18 @@ const courierSchema = new Schema(
     passwordHash: {
       type: String,
       required: [true, 'Password is required.']
+    },
+    birthday: {
+      type: Date, 
+      required: [false, 'Birthday is not required.'],
+    },
+    country: {
+      type: String,
+      required: [false, 'Country is not required.'],
+    },
+    city: {
+      type: String,
+      required: [false, 'City is not required.'],
     }
   },
   {
@@ -31,4 +43,5 @@ const courierSchema = new Schema(
   }
 );
  
-module.exports = model('Courier', courierSchema);
+const Courier = model('Courier', courierSchema);
+module.exports = Courier;
