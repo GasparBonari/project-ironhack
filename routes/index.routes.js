@@ -23,7 +23,10 @@ router.get("/", async (req, res) => {
 router.get("/restaurants/:id", async (req, res) => {
   try {
     const restaurant = await Restaurant.findById(req.params.id);
-    res.render("restaurantPage", { restaurant });
+    res.render("restaurantPage", {
+      restaurant,
+      userInSession: req.session.currentUser,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");

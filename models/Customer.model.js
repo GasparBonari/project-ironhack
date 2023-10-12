@@ -25,7 +25,7 @@ const customerSchema = new Schema(
     greet: {
       type: String,
       required: true,
-      default: "Hallo",
+      default: "Hallo 💖",
     },
     role: {
       type: String,
