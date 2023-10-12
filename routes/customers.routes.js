@@ -178,6 +178,9 @@ router.get("/customerProfile", isLoggedIn, (req, res) => {
   });
 });
 
+<<<<<<< HEAD
+router.get("/customer/:CustomerId/edit", (req, res, next) => {
+=======
 /*
 router.get("/customer/:CustomerId", (req, res, next) => {
   const { CustomerId } = req.params;
@@ -195,6 +198,7 @@ router.get("/customer/:CustomerId", (req, res, next) => {
 */
 
 router.get("/:CustomerId/edit", (req, res, next) => {
+>>>>>>> origin/main
   const { CustomerId } = req.params;
 
   Customer.findById(CustomerId)
@@ -265,6 +269,6 @@ router.post("/customerLogout", isLoggedIn, (req, res, next) => {
     res.render("protected/customerLoggedOut");
   });
 });
-// all your routes here
+
 
 module.exports = router;
