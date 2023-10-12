@@ -181,11 +181,12 @@ router.get("/managerNew/:username", (req, res) => {
   res.render("Manager/managerNew", { username });
 });
 
-router.post("/managerLogout", managerLoggedin, (req, res, next) => {
-  req.session.destroy((err) => {
-    if (err) next(err);
-    res.render("manager/managerLogin");
+  router.post("/managerLogout", managerLoggedin, (req, res, next) => {
+    req.session.destroy((err) => {
+      if (err) next(err);
+      res.render("manager/managerLogin");
+    });
   });
-});
 
+ 
 module.exports = router;

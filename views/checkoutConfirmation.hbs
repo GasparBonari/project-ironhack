@@ -1,0 +1,20 @@
+<h2>Order Confirmation</h2>
+
+<p>Thank you for your order, {{order.name}}!</p>
+
+<h3>Order Details:</h3>
+
+<ul>
+    <li><strong>Name:</strong> {{order.name}}</li>
+    <li><strong>Email:</strong> {{order.email}}</li>
+    <li><strong>Address:</strong> {{order.address}}</li>
+    <li><strong>Restaurant Name:</strong> {{order.restaurantName}}</li>
+</ul>
+
+<h3>Ordered Dishes:</h3>
+
+<ul>
+    {{#each order.dish}}
+        <li>{{this.name}} - ${{this.price}}</li>
+    {{/each}}
+</ul>
