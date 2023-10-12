@@ -178,7 +178,7 @@ router.get("/customerProfile", isLoggedIn, (req, res) => {
   });
 });
 
-router.get("/customer/:CustomerId/edit", (req, res, next) => {
+router.get("/:CustomerId/edit", (req, res, next) => {
   const { CustomerId } = req.params;
 
   Customer.findById(CustomerId)
