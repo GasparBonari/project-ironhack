@@ -42,8 +42,9 @@ router.post("/customerLogin", (req, res, next) => {
         });
       } else if (bcryptjs.compareSync(password, customer.passwordHash)) {
         //******* SAVE THE USER IN THE SESSION ********//
+
         req.session.currentUser = customer;
-        res.redirect("/customer/customerProfile");
+        res.redirect("/");
       } else {
         console.log("Incorrect password. ");
         res.render("./auth/customerLogin", {
@@ -228,20 +229,17 @@ router.post("/:CustomerId/edit", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.post(
-  "/customerProfile/:CustomerId/delete",
-  (req, res, next) => {
-    const { CustomerId } = req.params;
-    Customer.findByIdAndDelete(CustomerId)
-      .then(() => {
-        req.session.destroy((err) => {
-          if (err) next(err);
-        });
-        res.render("protected/customerDeleted");
-      })
-      .catch((error) => next(error));
-  }
-);
+router.post("/customerProfile/:CustomerId/delete", (req, res, next) => {
+  const { CustomerId } = req.params;
+  Customer.findByIdAndDelete(CustomerId)
+    .then(() => {
+      req.session.destroy((err) => {
+        if (err) next(err);
+      });
+      res.render("protected/customerDeleted");
+    })
+    .catch((error) => next(error));
+});
 
 router.post("/customerLogout", isLoggedIn, (req, res, next) => {
   req.session.destroy((err) => {

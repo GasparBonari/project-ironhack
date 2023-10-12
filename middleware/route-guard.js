@@ -17,7 +17,6 @@ const isLoggedOut = (req, res, next) => {
   next();
 };
 
-
 // checks if the user is Manager logged in when trying to access a specific page
 const managerLoggedin = (req, res, next) => {
   if (!req.session.currentUser) {
@@ -35,6 +34,12 @@ const managerLoggedout = (req, res, next) => {
   next();
 };
 
+const isManagerAndLoggedIn = (req, res, next) => {
+  if (!req.session.currentUser || req.session.currentUser.role !== "manager") {
+    return res.render("Manager/requireManager");
+  }
+  next();
+};
 
 // checks if the user is Manager logged in when trying to access a specific page
 const courierLoggedin = (req, res, next) => {
@@ -53,11 +58,11 @@ const courierLoggedout = (req, res, next) => {
   next();
 };
 
-
 module.exports = {
   isLoggedIn,
   isLoggedOut,
   managerLoggedin,
+  isManagerAndLoggedIn,
   managerLoggedout,
   courierLoggedin,
   courierLoggedout,

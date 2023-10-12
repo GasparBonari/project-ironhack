@@ -22,10 +22,15 @@ const customerSchema = new Schema(
       lowercase: true,
       trim: true,
     },
+    greet: {
+      type: String,
+      required: true,
+      default: "Hallo 💖",
+    },
     role: {
       type: String,
       required: true,
-      default: 'customer',
+      default: "customer",
     },
     fullname: {
       type: String,
