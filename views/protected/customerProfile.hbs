@@ -15,9 +15,9 @@
     {{userInSession.city}}
     {{userInSession.country}}
   <p>Order history:
-    {{#each customer.order}}
-      <a>{{name}} | </a>
-    {{/each}}
+  {{#each userInSession.order}}
+    <a>{{this.restaurantName}} | </a>
+  {{/each}}
   </p>
   <hr />
   <form action="/customer/customerProfile/{{userInSession._id}}/delete" method="POST">

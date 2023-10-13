@@ -56,6 +56,11 @@ const customerSchema = new Schema(
       type: String,
       //required: true,
     },
+    order: [
+      {
+        name: {type: String},
+      }
+   ],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
