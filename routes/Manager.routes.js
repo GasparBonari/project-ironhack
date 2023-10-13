@@ -200,13 +200,7 @@ router.get("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
 
 router.post("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
   const { ManagerId } = req.params;
-  const {
-    username,
-    email,
-    birthday,
-    country,
-    city
-  } = req.body;
+  const { username, email, birthday, country, city } = req.body;
 
   Manager.findByIdAndUpdate(
     ManagerId,
@@ -215,7 +209,7 @@ router.post("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
       email,
       birthday,
       country,
-      city
+      city,
     },
     { new: true }
   )
@@ -226,25 +220,139 @@ router.post("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.post("/managerMain/:ManagerId/delete", managerLoggedin, (req, res, next) => {
-  const { ManagerId } = req.params; 
-  Manager.findByIdAndDelete(ManagerId)
-    .then(() => {
-      req.session.destroy((err) => {
-        if (err) next(err);
-        res.render("Manager/managerDeleted");
-      });
-    })
-    .catch((error) => next(error));
-});
+router.post(
+  "/managerMain/:ManagerId/delete",
+  managerLoggedin,
+  (req, res, next) => {
+    const { ManagerId } = req.params;
+    Manager.findByIdAndDelete(ManagerId)
+      .then(() => {
+        req.session.destroy((err) => {
+          if (err) next(err);
+          res.render("Manager/managerDeleted");
+        });
+      })
+      .catch((error) => next(error));
+  }
+);
 
 // Route for Manager logOut:
-  router.post("/managerLogout", managerLoggedin, (req, res, next) => {
-    req.session.destroy((err) => {
-      if (err) next(err);
-      res.render("manager/managerLogin");
-    });
+router.post("/managerLogout", managerLoggedin, (req, res, next) => {
+  req.session.destroy((err) => {
+    if (err) next(err);
+    res.render("manager/managerLogin");
   });
+});
 
- 
+// CRUD Restaurants BEGIN
+
+// GET route ==> to display the create form for restaurant
+router.get("/managerMain/createRestaurant", isManagerAndLoggedIn, (req, res) =>
+  res.render("manager/createRestaurant")
+);
+
+// POST route ==> to process form data
+router.post("/managerMain/createRestaurant", (req, res, next) => {
+  // console.log("The form data: ", req.body);
+  const { name, email, image, adress } = req.body;
+
+  if (!name || !email || !adress) {
+    res.render("Manager/createRestaurant", {
+      errorMessage:
+        "All fields are mandatory. Please provide name, email, image, adress and adress.",
+    });
+    return;
+  }
+
+  return Restaurant.create({ name, email, image, adress })
+    .then((allRestaurants) => {
+      //console.log("Response statusCode: ", res.statusCode);
+      console.log(allRestaurants);
+      if (res.statusCode !== 200) {
+        res.render("Manager/restaurantList", {
+          restaurants: allRestaurants,
+        });
+      } else {
+        res.redirect("/manager/managerMain/restaurantList");
+      }
+    })
+    .catch((error) => {
+      console.log("Restaurant create error: ", error);
+      next(error);
+    });
+});
+
+router.get(
+  "/managerMain/restaurantList",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    Restaurant.find()
+      .then((allRestaurants) => {
+        res.render("Manager/restaurantList", { restaurants: allRestaurants });
+      })
+      .catch((error) => {
+        console.log("Restaurant error: ", error);
+        next(error);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/restaurantList/:RestaurantId/delete",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { RestaurantId } = req.params;
+    Restaurant.findByIdAndDelete(RestaurantId)
+      .then(() => {
+        res.render("Manager/restaurantDeleted");
+      })
+      .catch((error) => next(error));
+  }
+);
+
+router.get(
+  "/managerMain/restaurantList/:RestaurantId/edit",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { RestaurantId } = req.params;
+    Restaurant.findById(RestaurantId)
+      .then((restaurantToEdit) => {
+        Restaurant.find().then((restaurants) => {
+          res.render("Manager/restaurantEdit", {
+            restaurant: restaurantToEdit,
+            restaurants,
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("Restaurant error: ", error);
+        next(error);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/restaurantList/:RestaurantId/edit",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { RestaurantId } = req.params;
+    const { name, image, address, menu } = req.body;
+    Restaurant.findByIdAndUpdate(
+      RestaurantId,
+      {
+        name,
+        image,
+        address,
+        menu,
+      },
+      { new: true }
+    )
+      .then((updatedRestaurant) => {
+        res.redirect("/manager/managerMain/restaurantList/");
+      })
+      .catch((error) => next(error));
+  }
+);
+// CRUD Restaurants END
+
 module.exports = router;

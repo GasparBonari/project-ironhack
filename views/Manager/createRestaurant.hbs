@@ -1,0 +1,30 @@
+<h1>Create new Restaurant</h1>
+
+<form action="/manager/managerMain/createRestaurant" method="POST">
+ 
+    <label> Restaurant name
+      <input type="text" name="name" placeholder="manager_name" />
+    </label>
+ 
+    <label> Email
+      <input type="email" name="email" placeholder="restaurant@email.com" />
+    </label>
+ 
+    <label> Image
+      <input type="text" name="image" placeholder="image url" />
+    </label>
+
+       <label> Adress
+      <input type="text" name="adress" placeholder="restaurant adress" />
+    </label>
+ 
+    <button type="submit">Create new restaurant</button>
+ 
+    {{!-- error message will be added here --}}
+
+    {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+  {{/if}}
+
+  </form>
+</div>

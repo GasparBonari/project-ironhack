@@ -1,0 +1,46 @@
+<h1>Restaurant management</h1>
+<h3>Restaurant list</h3>
+
+<ul class="list-group" style="list-style: none;">
+  {{#each restaurants}}
+    <li class="mb-3">
+      <a class="text-decoration-none">
+        <div class="card border-dark shadow">
+          <div class="row g-0">
+            <div class="col-md-3">
+              <a href="/restaurants/{{_id}}/edit"><img
+                  src="{{image}}"
+                  alt="{{name}} Image"
+                  class="img-fluid rounded"
+                /></a>
+            </div>
+            <div class="col-md-9">
+              <div class="card-body">
+                <h2 class="card-title">{{name}}</h2>
+                <p class="card-text">{{address}}</p>
+                <p class="card-text">edit {{name}}</p>
+
+                <a href="/manager/managerMain/restaurantList/{{_id}}/edit" class="btn btn-primary float-start">Edit
+                  {{name}}
+                  details</a>
+
+                <form
+                  class="card-text"
+                  action="/manager/managerMain/restaurantList/{{_id}}/delete"
+                  method="POST"
+                >
+                <button class="btn btn-danger float-end">⚠️ Delete:
+                {{name}}
+                </button>
+                </form>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </a>
+    </li>
+  {{/each}}
+</ul>
