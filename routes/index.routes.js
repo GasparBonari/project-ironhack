@@ -72,7 +72,7 @@ router.post('/checkout', async (req, res) => {
     const customer = await Customer.findById(customerId);
 
     // Add only the restaurantName to the customer's order array
-    customer.order.push({ restaurantName });
+    customer.order.push({ name: restaurantName });
 
     // Save the updated customer document
     await customer.save();
@@ -81,7 +81,9 @@ router.post('/checkout', async (req, res) => {
     req.session.cartItems = [];
 
     res.render('checkoutConfirmation', { order });
-  } catch (error) {
+  }
+  catch (error) 
+  {
     console.error('Error processing checkout:', error);
     res.status(500).send('Internal Server Error');
   }
