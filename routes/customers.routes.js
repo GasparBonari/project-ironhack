@@ -5,7 +5,6 @@ const bcryptjs = require("bcryptjs");
 const saltRounds = 10;
 
 const Customer = require("../models/Customer.model.js");
-const Dish = require("../models/Dish.model.js");
 const Order = require("../models/Order.model.js");
 
 // middleware
@@ -173,10 +172,18 @@ router.get("/customerList", isLoggedIn, (req, res, next) => {
     });
 });
 
-router.get("/customerProfile", isLoggedIn, (req, res) => {
-  res.render("protected/customerProfile", {
-    userInSession: req.session.currentUser,
-  });
+router.get("/customerProfile", isLoggedIn, async (req, res) => {
+  try {
+    const userInSession = req.session.currentUser;
+    const customer = await Customer.findById(userInSession._id);
+    
+    res.render("protected/customerProfile", {
+      userInSession: customer,
+    });
+  } catch (error) {
+    console.error('Error fetching customer data:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 router.get("/:CustomerId/edit", (req, res, next) => {
@@ -247,6 +254,5 @@ router.post("/customerLogout", isLoggedIn, (req, res, next) => {
     res.render("protected/customerLoggedOut");
   });
 });
-
 
 module.exports = router;

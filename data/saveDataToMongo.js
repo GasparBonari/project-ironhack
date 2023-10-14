@@ -4,7 +4,7 @@ const jsonData = require("./restaurantsData");
 
 // Use the existing connection from db/index.js
 const db = mongoose.connection;
-/*
+
 // Save JSON data to the database
 async function saveDataToDatabase() {
   try {
@@ -25,4 +25,3 @@ db.once("open", () => {
   console.log("Connected to Mongo!");
   saveDataToDatabase();
 });
-*/
