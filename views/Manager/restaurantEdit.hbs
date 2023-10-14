@@ -1,0 +1,43 @@
+<h1>Restaurant management</h1>
+<h3>Edit "{{restaurant.name}}" details:</h3>
+
+<form
+  class="card-text"
+  action="/manager/managerMain/restaurantList/{{restaurant._id}}/edit"
+  method="POST"
+>
+  <div class="input-group mb-3" style="flex-direction: column;">
+    <label>
+      Name:
+      <input
+        class="form-control"
+        type="text"
+        name="email"
+        value="{{restaurant.name}}"
+      />
+    </label>
+
+    <label>
+      Image url:
+      <input
+        class="form-control"
+        type="text"
+        name="image"
+        value="{{restaurant.image}}"
+      />
+    </label>
+
+    <label>
+      Address:
+      <input
+        class="form-control"
+        type="text"
+        name="address"
+        value="{{restaurant.address}}"
+      />
+    </label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Save
+    {{restaurant.name}}</button>
+</form>
