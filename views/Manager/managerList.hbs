@@ -1,0 +1,22 @@
+<ul class="list-group" style="list-style: none;">
+  {{#each managers}}
+    <li class="mb-3" style="cursor: pointer;">
+      <a href="/managers/{{_id}}" class="text-decoration-none">
+        <div class="card border-dark shadow">
+          <div class="row g-0">
+            <div class="col-md-9">
+              <div class="card-body">
+                <h2 class="card-title">{{username}}</h2>
+                <p class="card-text">{{_id}}</p>
+                <p class="card-text">{{eMail}}</p>
+                <p class="card-text">{{role}}</p>
+                <p class="card-text">{{country}}</p>
+                <p class="card-text">{{city}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </li>
+  {{/each}}
+</ul>
