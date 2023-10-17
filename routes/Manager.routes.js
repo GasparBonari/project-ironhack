@@ -234,6 +234,7 @@ router.post("/managerMain/:ManagerId/delete", managerLoggedin,
   }
 );
 
+ 
 // Route for Manager logOut:
 router.post("/managerLogout", managerLoggedin, (req, res, next) => {
   req.session.destroy((err) => {
@@ -483,5 +484,119 @@ router.post(
 );
 
 // CRUD Restaurants END
+
+
+// CRUD Managers BEGIN
+
+// GET route ==> to display the create form for Manager
+router.get("/managerMain/managerCreate", isManagerAndLoggedIn, (req, res) =>
+  res.render("manager/managerCreate")
+);
+
+// POST route ==> to process form data
+router.post("/managerMain/managerCreate", (req, res, next) => {
+  // console.log("The form data: ", req.body);
+  const { username, email, password, password2 } = req.body;
+
+  if (!username || !email || !password || !password2) {
+    res.render("Manager/managerCreate", {
+      errorMessage:
+        "All fields are mandatory. Please provide name, email and password",
+    });
+    return;
+  }
+
+  return Manager.create({ username, email, password, password2 })
+    .then((allManagers) => {
+      //console.log("Response statusCode: ", res.statusCode);
+      console.log(allManagers);
+      if (res.statusCode !== 200) {
+        res.render("Manager/managerList", {
+          managers: allManagers,
+        });
+      } else {
+        res.redirect("/manager/managerMain/managerList");
+      }
+    })
+    .catch((error) => {
+      console.log("Manager create error: ", error);
+      next(error);
+    });
+});
+
+router.get(
+  "/managerMain/managerList",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    Manager.find()
+      .then((allManagers) => {
+        res.render("Manager/managerList", { managers: allManagers });
+      })
+      .catch((error) => {
+        console.log("Managers error: ", error);
+        next(error);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/managerList/:ManagerId/delete",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { ManagerId } = req.params;
+    Manager.findByIdAndDelete(ManagerId)
+      .then(() => {
+        res.render("Manager/managerDeleted");
+      })
+      .catch((error) => next(error));
+  }
+);
+
+router.get(
+  "/managerMain/managerList/:ManagerId/edit", isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { ManagerId } = req.params;
+    Manager.findById(ManagerId)
+      .then((managerToEdit) => {
+        Manager.find().then((managers) => {
+          res.render("Manager/managerEdit", {
+            manager: managerToEdit,
+            managers,
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("Manager error: ", error);
+        next(error);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/managerList/:ManagerId/edit",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { ManagerId } = req.params;
+    const { username, email, birthday, country, city  } = req.body;
+    Manager.findByIdAndUpdate(
+      ManagerId,
+      {
+        username,
+        email,
+        birthday,
+        country,
+        city,
+      },
+      { new: true }
+    )
+      .then((updatedManager) => {
+        res.redirect("/manager/managerMain/managerList/");
+      })
+      .catch((error) => next(error));
+  }
+);
+// CRUD Manager END
+
+
 
 module.exports = router;

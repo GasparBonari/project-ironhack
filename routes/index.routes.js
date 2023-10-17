@@ -55,7 +55,7 @@ router.post('/checkout', async (req, res) => {
     // Retrieve cartItems from the session
     const cartItems = req.session.cartItems || [];
 
-    // Create a new order
+    // Create a new order with the restaurantName
     const order = new Order({
       name,
       email,
@@ -64,14 +64,26 @@ router.post('/checkout', async (req, res) => {
       dish: cartItems,
     });
 
-    // Save the order to the database
+    // Save the order to the Order model
     await order.save();
+
+    // Find the currently logged-in customer
+    const customerId = req.session.currentUser._id;
+    const customer = await Customer.findById(customerId);
+
+    // Add only the restaurantName to the customer's order array
+    customer.order.push({ name: restaurantName });
+
+    // Save the updated customer document
+    await customer.save();
 
     // Clear the cartItems from the session after the order is placed
     req.session.cartItems = [];
 
     res.render('checkoutConfirmation', { order });
-  } catch (error) {
+  }
+  catch (error) 
+  {
     console.error('Error processing checkout:', error);
     res.status(500).send('Internal Server Error');
   }

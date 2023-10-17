@@ -6,7 +6,7 @@ const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
 
 // Middleware
-const { courierLoggedin, courierLoggedout } = require('../middleware/route-guard.js');
+const { courierLoggedin, courierLoggedout, isManagerAndLoggedIn } = require('../middleware/route-guard.js');
 
 // GET /manager/login
 router.get('/courierLogin', courierLoggedout, (req, res) => {
@@ -189,5 +189,117 @@ router.post('/courierLogout', courierLoggedin, (req, res, next) => {
     return res.render('Manager/courierLogin');
   });
 });
+
+
+// CRUD Couriers BEGIN
+
+// GET route ==> to display the create form for Courier
+router.get("/managerMain/courierCreate", isManagerAndLoggedIn, (req, res) =>
+  res.render("manager/courierCreate")
+);
+
+// POST route ==> to process form data
+router.post("/managerMain/courierCreate", (req, res, next) => {
+  // console.log("The form data: ", req.body);
+  const { username, email, password, password2 } = req.body;
+
+  if (!username || !email || !password || !password2) {
+    res.render("Manager/courierCreate", {
+      errorMessage:
+        "All fields are mandatory. Please provide name, email and password",
+    });
+    return;
+  }
+
+  return Courier.create({ username, email, password, password2 })
+    .then((allCouriers) => {
+      //console.log("Response statusCode: ", res.statusCode);
+      console.log(allCouriers);
+      if (res.statusCode !== 200) {
+        res.render("Manager/courierList", {
+          couriers: allCouriers,
+        });
+      } else {
+        res.redirect("/manager/managerMain/courierList");
+      }
+    })
+    .catch((error) => {
+      console.log("Courier create error: ", error);
+      next(error);
+    });
+});
+
+router.get(
+  "/managerMain/courierList",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    Courier.find()
+      .then((allCouriers) => {
+        res.render("Manager/courierList", { couriers: allCouriers });
+      })
+      .catch((error) => {
+        console.log("Couriers error: ", error);
+        next(error);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/courierList/:CourierId/delete",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { CourierId } = req.params;
+    Courier.findByIdAndDelete(CourierId)
+      .then(() => {
+        res.render("Manager/courierDeleted");
+      })
+      .catch((error) => next(error));
+  }
+);
+
+router.get(
+  "/managerMain/courierList/:CourierId/edit", isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { CourierId } = req.params;
+    Courier.findById(CourierId)
+      .then((courierToEdit) => {
+        Courier.find().then((couriers) => {
+          res.render("Manager/courierEdit", {
+            courier: courierToEdit,
+            couriers,
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("Courier error: ", error);
+        next(error);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/courierList/:CourierId/edit",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { CourierId } = req.params;
+    const { username, email, birthday, country, city  } = req.body;
+    Courier.findByIdAndUpdate(
+      CourierId,
+      {
+        username,
+        email,
+        birthday,
+        country,
+        city,
+      },
+      { new: true }
+    )
+      .then((updatedCourier) => {
+        res.redirect("/manager/managerMain/courierList/");
+      })
+      .catch((error) => next(error));
+  }
+);
+// CRUD Manager END
 
 module.exports = router;

@@ -14,11 +14,12 @@
     {{userInSession.postcode}}
     {{userInSession.city}}
     {{userInSession.country}}
-  <p>Order history:
-    {{#each customer.order}}
-      <a>{{name}} | </a>
+  <p>Order history:</p>
+  <ul>
+    {{#each userInSession.order}}
+      <li>{{this.name}}</li>
     {{/each}}
-  </p>
+  </ul>
   <hr />
   <form action="/customer/customerProfile/{{userInSession._id}}/delete" method="POST">
     <button>Delete {{userInSession.username}} account</button>
