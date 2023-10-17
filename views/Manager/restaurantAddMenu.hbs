@@ -1,0 +1,73 @@
+<h3>Restaurant management for: {{restaurant.name}}</h3>
+<h4>Add menu</h4>
+<div class="row">
+  <!-- Menu -->
+  <div class="col-md-8">
+    <form
+      class="card-text"
+      action="/manager/managerMain/restaurantList/{{restaurant._id}}/addMenu"
+      method="POST"
+    >
+      <div class="input-group mb-3" style="flex-direction: column;">
+        <label>
+          Menu name:
+          <input
+            class="form-control"
+            type="text"
+            name="name"
+          />
+        </label>
+
+        <label>
+          Menu price:
+          <input
+            class="form-control"
+            type="number"
+            name="price"
+          />
+        </label>
+
+        <label>
+          Menu image URL:
+          <input
+            class="form-control"
+            type="text"
+            name="image"
+          />
+        </label>
+        
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add to menu</button>
+    </form>
+    </div>
+    
+<div class="col-md-4 border rounded p-3">
+      <h2>Menu preview</h2>
+        <a href="/manager/managerMain/restaurantList/{{restaurant._id}}/updateMenu" class="btn btn-primary">Update
+        menus</a><hr />
+        
+          {{#each restaurant.menu}}
+            <div class="mb-3">
+              <div class="card d-flex flex-row align-items-md-center">
+                <img
+                  src="{{image}}"
+                  alt="{{name}} Image"
+                  class="card-img-top"
+                  style="width: 130px"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{{name}}</h5>
+                  <p class="card-text">Price: ${{price}}</p>
+                </div>
+                <form 
+                class="card-text"
+                action="/manager/managerMain/restaurantList/{{../restaurant._id}}/{{_id}}/deleteMenu"
+                method="POST">
+                <button class="btn btn-danger float-end" style="margin-bottom: 10px;">Delete</button></form> 
+              </div>
+            </div>
+          {{/each}}
+    </div>
+</div>
+    
