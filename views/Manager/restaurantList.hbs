@@ -8,7 +8,7 @@
         <div class="card border-dark shadow">
           <div class="row g-0">
             <div class="col-md-3">
-              <a href="/restaurants/{{_id}}/edit"><img
+              <a href="/manager/managerMain/restaurantList/{{_id}}/edit"><img
                   src="{{image}}"
                   alt="{{name}} Image"
                   class="img-fluid rounded"
@@ -20,19 +20,17 @@
                 <p class="card-text">{{address}}</p>
                 <p class="card-text">edit {{name}}</p>
 
-                <a href="/manager/managerMain/restaurantList/{{_id}}/edit" class="btn btn-primary float-start">Edit
+                  <div style="justify-content: space-around;">
+                <a href="/manager/managerMain/restaurantList/{{_id}}/edit" class="btn btn-primary ">Edit
                   {{name}}
                   details</a>
 
-                <form
-                  class="card-text"
-                  action="/manager/managerMain/restaurantList/{{_id}}/delete"
-                  method="POST"
-                >
-                <button class="btn btn-danger float-end">⚠️ Delete:
-                {{name}}
-                </button>
-                </form>
+                <a href="/manager/managerMain/restaurantList/{{_id}}/updateMenu" class="btn btn-primary ">Update
+                menus</a>
+
+                  <a href="/manager/managerMain/restaurantList/{{_id}}/addMenu" class="btn btn-primary ">Add menu</a>            
+                
+                  </div>
 
                 </div>
               </div>

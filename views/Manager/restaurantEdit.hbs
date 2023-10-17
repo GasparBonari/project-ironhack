@@ -1,43 +1,142 @@
-<h1>Restaurant management</h1>
-<h3>Edit "{{restaurant.name}}" details:</h3>
+<h3>Restaurant management for: {{restaurant.name}}</h3>
+<h5>Address: {{restaurant.address}} </h5>
+<div class="row">
+  <!-- Menu -->
+  <div class="col-md-8"><br />
+    <img
+      src="{{restaurant.image}}"
+      alt="{{restaurant.name}} Image"
+      class="img-fluid rounded"
+    /><br />
+    <h3>Update details:</h3>
+    <form
+      class="card-text"
+      action="/manager/managerMain/restaurantList/{{restaurant._id}}/edit"
+      method="POST"
+    >
+      <div class="input-group mb-3" style="flex-direction: column;">
+        <label>
+          Name:
+          <input
+            class="form-control"
+            type="text"
+            name="name"
+            value="{{restaurant.name}}"
+          />
+        </label>
+        <label>
+          Image url:
+          <input
+            class="form-control"
+            type="text"
+            name="image"
+            value="{{restaurant.image}}"
+          />
+        </label>
 
-<form
-  class="card-text"
-  action="/manager/managerMain/restaurantList/{{restaurant._id}}/edit"
-  method="POST"
->
-  <div class="input-group mb-3" style="flex-direction: column;">
-    <label>
-      Name:
-      <input
-        class="form-control"
-        type="text"
-        name="email"
-        value="{{restaurant.name}}"
-      />
-    </label>
+        <label>
+          Address:
+          <input
+            class="form-control"
+            type="text"
+            name="address"
+            value="{{restaurant.address}}"
+          />
+        </label>
 
-    <label>
-      Image url:
-      <input
-        class="form-control"
-        type="text"
-        name="image"
-        value="{{restaurant.image}}"
-      />
-    </label>
+      </div>
 
-    <label>
-      Address:
-      <input
-        class="form-control"
-        type="text"
-        name="address"
-        value="{{restaurant.address}}"
-      />
-    </label>
+      <button type="submit" class="btn btn-primary float-start">Save
+        {{restaurant.name}}</button>
+    </form>
+
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary float-end"
+      data-toggle="modal"
+      data-target="#deleteRestaurantModal"
+    >Delete</button>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="deleteRestaurantModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="deleteRestaurantModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteRestaurantModalLabel">⚠️ Caution</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Restaurant "{{restaurant.name}}" will be removed permanently from
+            database and can't be undone!
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >Close</button>
+            <form
+              class="card-text"
+              action="/manager/managerMain/restaurantList/{{restaurant._id}}/delete"
+              method="POST"
+            >
+              <button
+                class="btn btn-danger float-end"
+                style="margin-bottom: 10px;"
+              >Delete: {{restaurant.name}}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br /><br /><hr />
+
   </div>
 
-  <button type="submit" class="btn btn-primary">Save
-    {{restaurant.name}}</button>
-</form>
+  <div class="col-md-4 border rounded p-3">
+    <h2>Menu preview</h2>
+    <a
+      href="/manager/managerMain/restaurantList/{{restaurant._id}}/updateMenu"
+      class="btn btn-primary"
+    >Update menus</a>
+    <a
+      href="/manager/managerMain/restaurantList/{{restaurant._id}}/addMenu"
+      class="btn btn-primary"
+    >Add menu</a>
+
+    {{#each restaurant.menu}}
+      <div class="mb-3">
+        <div
+          class="card d-flex flex-row align-items-md-center"
+          style="margin: 10px;"
+        >
+          <img
+            src="{{image}}"
+            alt="{{name}} Image"
+            class="card-img-top"
+            style="width: 130px"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{name}}</h5>
+            <p class="card-text">Price: ${{price}}</p>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>

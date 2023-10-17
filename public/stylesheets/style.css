@@ -10,3 +10,25 @@ a {
 h1 {
   color: 15px;
 }
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+  margin-top: 38px;
+}
+
+.dropdown > .dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}
+
+.navbar {
+  position: relative;
+}
+
+.brand {
+  position: absolute;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px !important; /* 50% of your logo width */
+  display: block;
+}

@@ -20,7 +20,7 @@ router.get("/managerLogin", managerLoggedout, (req, res) => {
 });
 
 // POST /manager/login
-router.post("/ManagerLogin", (req, res, next) => {
+router.post("/managerLogin", (req, res, next) => {
   console.log("here it was hit");
   console.log("SESSION =====> ", req.session);
 
@@ -46,9 +46,12 @@ router.post("/ManagerLogin", (req, res, next) => {
         });
       } else if (bcryptjs.compareSync(password, manager.passwordHash)) {
         //******* SAVE THE USER IN THE SESSION ********//
+        
         req.session.currentUser = manager;
         console.log("Session data after login:", req.session);
-        res.redirect("/manager/managerMain");
+        res.redirect("/");
+        //res.redirect("/manager/managerMain");
+        //res.render("Manager/managerMain");
       } else {
         console.log("Incorrect password. ");
         res.render("Manager/managerLogin", {
@@ -68,7 +71,7 @@ router.post("/ManagerLogin", (req, res, next) => {
           "User not found and/or incorrect password, please try again! "
         );
 
-        res.status(500).render("Manager/managerLogin", {
+        res.render("Manager/managerLogin", {
           errorMessage:
             "User not found and/or incorrect password, please try again!",
         });
@@ -131,9 +134,7 @@ router.post("/managerCreate", (req, res, next) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res
-          .status(500)
-          .render("Manager/managerCreate", { errorMessage: error.message });
+        res.status(500).render("Manager/managerCreate", { errorMessage: error.message });
       } else if (error.code === 11000) {
         console.log(
           " Username and email need to be unique. Either username or email is already used. "
@@ -148,9 +149,8 @@ router.post("/managerCreate", (req, res, next) => {
     });
 });
 
-router.get("/ManagerMain", isManagerAndLoggedIn, (req, res) => {
-  res
-    .render("Manager/managerMain", {
+router.get("/managerMain", isManagerAndLoggedIn, (req, res) => {
+  res.render("Manager/managerMain", {
       userInSession: req.session.currentUser,
     })
     .catch((error) => {
@@ -164,7 +164,7 @@ router.get("/ManagerMain", isManagerAndLoggedIn, (req, res) => {
           " User not found and/or incorrect password, please try again! "
         );
 
-        res.status(500).render("Manager/requireManager", {
+        res.render("Manager/requireManager", {
           errorMessage:
             "User not found and/or incorrect password, please try again!",
         });
@@ -220,9 +220,7 @@ router.post("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.post(
-  "/managerMain/:ManagerId/delete",
-  managerLoggedin,
+router.post("/managerMain/:ManagerId/delete", managerLoggedin,
   (req, res, next) => {
     const { ManagerId } = req.params;
     Manager.findByIdAndDelete(ManagerId)
@@ -336,23 +334,154 @@ router.post(
   isManagerAndLoggedIn,
   (req, res, next) => {
     const { RestaurantId } = req.params;
-    const { name, image, address, menu } = req.body;
+    const { name, image, address } = req.body;
+
+    console.log("BODY: ", req.body);
+
     Restaurant.findByIdAndUpdate(
       RestaurantId,
       {
         name,
         image,
         address,
-        menu,
       },
       { new: true }
     )
-      .then((updatedRestaurant) => {
-        res.redirect("/manager/managerMain/restaurantList/");
+      .then(() => {
+        res.redirect(req.originalUrl);
+        //res.redirect("/manager/managerMain/restaurantList/");
       })
       .catch((error) => next(error));
   }
 );
+
+router.get(
+  "/managerMain/restaurantList/:RestaurantId/updateMenu",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { RestaurantId } = req.params;
+    Restaurant.findById(RestaurantId)
+      .then((restaurantToEdit) => {
+        Restaurant.find().then((restaurants) => {
+          res.render("Manager/restaurantUpdateMenu", {
+            restaurant: restaurantToEdit,
+            restaurants,
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("Restaurant error: ", error);
+        next(error);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/restaurantList/:RestaurantId/:menuId/updateMenu",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { RestaurantId, menuId } = req.params;
+    const { name, price, image } = req.body;
+
+    console.log("BODY: ", req.body);
+
+    /* Solution 1: mongoos -> JS array | BEGIN*/
+    /*   Restaurant.findById(RestaurantId)
+      .then((restaurantDatas) => {
+        console.log(restaurantDatas);
+        let menu = restaurantDatas.menu.id(menuId);
+        console.log(menu);
+        menu["name"] = name;
+        menu["price"] = price;
+        menu["image"] = image;
+        restaurantDatas.save();
+        
+      })*/
+    /* Solution 1: | END*/
+
+    /* Solution 2: mongoos  | BEGIN*/
+    Restaurant.updateOne(
+      {
+        "menu._id": menuId,
+      },
+      {
+        $set: {
+          "menu.$.name": name,
+          "menu.$.price": price,
+          "menu.$.image": image,
+        },
+      }
+    )
+      /* Solution 2: mongoos  | END*/
+      .then((updatedMenu) => {
+        res.redirect(req.get("referer"));
+      })
+      .catch((err) => {
+        console.log("Update menu error", err);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/restaurantList/:RestaurantId/:menuId/deleteMenu",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { RestaurantId, menuId } = req.params;
+    Restaurant.findByIdAndUpdate(
+      { _id: RestaurantId },
+      { $pull: { menu: { _id: menuId } } }
+    )
+      .then(() => {
+        res.redirect(req.get("referer"));
+        //res.redirect(req.originalUrl);
+      })
+      .catch((error) => next(error));
+  }
+);
+
+router.get(
+  "/managerMain/restaurantList/:RestaurantId/addMenu",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { RestaurantId } = req.params;
+    Restaurant.findById(RestaurantId)
+      .then((restaurantToEdit) => {
+        Restaurant.find().then((restaurants) => {
+          res.render("Manager/restaurantAddMenu", {
+            restaurant: restaurantToEdit,
+            restaurants,
+          });
+        });
+      })
+      .catch((error) => {
+        console.log("Restaurant error: ", error);
+        next(error);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/restaurantList/:RestaurantId/addMenu",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { RestaurantId } = req.params;
+    const { name, price, image } = req.body;
+
+    Restaurant.findById(RestaurantId)
+      .then((restaurantDatas) => {
+        restaurantDatas.menu.unshift({ name, price, image });
+        restaurantDatas.save();
+      })
+      .then(() => {
+        //res.redirect(req.get('referer'));
+        res.redirect(req.originalUrl);
+      })
+      .catch((err) => {
+        console.log("Update menu error", err);
+      });
+  }
+);
+
 // CRUD Restaurants END
 
 module.exports = router;

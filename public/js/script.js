@@ -13,35 +13,35 @@ function addToCart(name, price) {
 
 // Function to send updated cart data to the server
 function updateCartOnServer(cartItems) {
-  fetch('/updateCart', {
-    method: 'POST',
+  fetch("/updateCart", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ cartItems }),
   })
-    .then(response => response.json())
-    .then(data => console.log('Cart updated on server:', data))
-    .catch(error => console.error('Error updating cart on server:', error));
+    .then((response) => response.json())
+    .then((data) => console.log("Cart updated on server:", data))
+    .catch((error) => console.error("Error updating cart on server:", error));
 }
 
 function updateCartList() {
-  const cartList = document.getElementById('cart-list');
-  cartList.innerHTML = ''; // Clear the existing list
+  const cartList = document.getElementById("cart-list");
+  cartList.innerHTML = ""; // Clear the existing list
 
   // Loop through cart items and append them to the list
   for (let i = 0; i < cartItems.length; i++) {
     const item = cartItems[i];
 
-    const listItem = document.createElement('li');
+    const listItem = document.createElement("li");
 
     // Display item details
     listItem.textContent = `${item.name} - $${item.price}`;
 
     // Add a delete button
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.onclick = function() {
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = function () {
       removeFromCart(i);
     };
 
@@ -57,8 +57,10 @@ function updateCartList() {
 }
 
 function updateTotalAmount() {
-  const totalAmountElement = document.getElementById('totalAmount');
-  const totalAmount = cartItems.reduce((total, item) => total + item.price, 0).toFixed(2);
+  const totalAmountElement = document.getElementById("totalAmount");
+  const totalAmount = cartItems
+    .reduce((total, item) => total + item.price, 0)
+    .toFixed(2);
   totalAmountElement.textContent = totalAmount;
 }
 
