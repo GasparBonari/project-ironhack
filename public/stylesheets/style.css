@@ -29,6 +29,19 @@ h1 {
   position: absolute;
   left: 50%;
   margin-top: -50px;
-  margin-left: -50px !important; /* 50% of your logo width */
+  margin-left: -50px !important;
   display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.btn-add-to-cart {
+  animation: fadeIn 0.5s ease;
 }
