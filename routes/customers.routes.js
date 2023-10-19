@@ -176,13 +176,13 @@ router.get("/customerProfile", isLoggedIn, async (req, res) => {
   try {
     const userInSession = req.session.currentUser;
     const customer = await Customer.findById(userInSession._id);
-    
+
     res.render("protected/customerProfile", {
       userInSession: customer,
     });
   } catch (error) {
-    console.error('Error fetching customer data:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error fetching customer data:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 

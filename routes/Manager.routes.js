@@ -2,6 +2,8 @@ const { Router } = require("express");
 const router = new Router();
 const Manager = require("../models/Manager.models.js");
 const Restaurant = require("../models/Restaurant.model.js");
+const Order = require("../models/Order.model.js");
+const Customer = require("../models/Customer.model.js");
 
 const mongoose = require("mongoose");
 const bcryptjs = require("bcryptjs");
@@ -46,11 +48,10 @@ router.post("/managerLogin", (req, res, next) => {
         });
       } else if (bcryptjs.compareSync(password, manager.passwordHash)) {
         //******* SAVE THE USER IN THE SESSION ********//
-        
+
         req.session.currentUser = manager;
         console.log("Session data after login:", req.session);
-        res.redirect("/");
-        //res.redirect("/manager/managerMain");
+        res.redirect("/manager/managerMain");
         //res.render("Manager/managerMain");
       } else {
         console.log("Incorrect password. ");
@@ -134,7 +135,9 @@ router.post("/managerCreate", (req, res, next) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.status(500).render("Manager/managerCreate", { errorMessage: error.message });
+        res
+          .status(500)
+          .render("Manager/managerCreate", { errorMessage: error.message });
       } else if (error.code === 11000) {
         console.log(
           " Username and email need to be unique. Either username or email is already used. "
@@ -151,9 +154,9 @@ router.post("/managerCreate", (req, res, next) => {
 
 router.get("/managerMain", isManagerAndLoggedIn, (req, res) => {
   res.render("Manager/managerMain", {
-      userInSession: req.session.currentUser,
-    })
-    .catch((error) => {
+    userInSession: req.session.currentUser,
+  });
+  /*.catch((error) => {
       if (error) {
         res.render("Manager/requireManager", {
           errorMessage:
@@ -172,7 +175,7 @@ router.get("/managerMain", isManagerAndLoggedIn, (req, res) => {
         console.log("next");
         next(error);
       }
-    }); // close .catch();
+    });*/ // close .catch();
 });
 
 // GET route for managerNew
@@ -220,7 +223,9 @@ router.post("/:ManagerId/edit", managerLoggedin, (req, res, next) => {
     .catch((error) => next(error));
 });
 
-router.post("/managerMain/:ManagerId/delete", managerLoggedin,
+router.post(
+  "/managerMain/:ManagerId/delete",
+  managerLoggedin,
   (req, res, next) => {
     const { ManagerId } = req.params;
     Manager.findByIdAndDelete(ManagerId)
@@ -234,7 +239,6 @@ router.post("/managerMain/:ManagerId/delete", managerLoggedin,
   }
 );
 
- 
 // Route for Manager logOut:
 router.post("/managerLogout", managerLoggedin, (req, res, next) => {
   req.session.destroy((err) => {
@@ -247,7 +251,7 @@ router.post("/managerLogout", managerLoggedin, (req, res, next) => {
 
 // GET route ==> to display the create form for restaurant
 router.get("/managerMain/createRestaurant", isManagerAndLoggedIn, (req, res) =>
-  res.render("manager/createRestaurant")
+  res.render("Manager/restaurant/createRestaurant")
 );
 
 // POST route ==> to process form data
@@ -256,7 +260,7 @@ router.post("/managerMain/createRestaurant", (req, res, next) => {
   const { name, email, image, adress } = req.body;
 
   if (!name || !email || !adress) {
-    res.render("Manager/createRestaurant", {
+    res.render("Manager/restaurant/createRestaurant", {
       errorMessage:
         "All fields are mandatory. Please provide name, email, image, adress and adress.",
     });
@@ -268,7 +272,7 @@ router.post("/managerMain/createRestaurant", (req, res, next) => {
       //console.log("Response statusCode: ", res.statusCode);
       console.log(allRestaurants);
       if (res.statusCode !== 200) {
-        res.render("Manager/restaurantList", {
+        res.render("Manager/restaurant/restaurantList", {
           restaurants: allRestaurants,
         });
       } else {
@@ -287,7 +291,9 @@ router.get(
   (req, res, next) => {
     Restaurant.find()
       .then((allRestaurants) => {
-        res.render("Manager/restaurantList", { restaurants: allRestaurants });
+        res.render("Manager/restaurant/restaurantList", {
+          restaurants: allRestaurants,
+        });
       })
       .catch((error) => {
         console.log("Restaurant error: ", error);
@@ -303,7 +309,7 @@ router.post(
     const { RestaurantId } = req.params;
     Restaurant.findByIdAndDelete(RestaurantId)
       .then(() => {
-        res.render("Manager/restaurantDeleted");
+        res.render("Manager/restaurant/restaurantDeleted");
       })
       .catch((error) => next(error));
   }
@@ -317,7 +323,7 @@ router.get(
     Restaurant.findById(RestaurantId)
       .then((restaurantToEdit) => {
         Restaurant.find().then((restaurants) => {
-          res.render("Manager/restaurantEdit", {
+          res.render("Manager/restaurant/restaurantEdit", {
             restaurant: restaurantToEdit,
             restaurants,
           });
@@ -364,7 +370,7 @@ router.get(
     Restaurant.findById(RestaurantId)
       .then((restaurantToEdit) => {
         Restaurant.find().then((restaurants) => {
-          res.render("Manager/restaurantUpdateMenu", {
+          res.render("Manager/restaurant/restaurantUpdateMenu", {
             restaurant: restaurantToEdit,
             restaurants,
           });
@@ -448,7 +454,7 @@ router.get(
     Restaurant.findById(RestaurantId)
       .then((restaurantToEdit) => {
         Restaurant.find().then((restaurants) => {
-          res.render("Manager/restaurantAddMenu", {
+          res.render("Manager/restaurant/restaurantAddMenu", {
             restaurant: restaurantToEdit,
             restaurants,
           });
@@ -484,7 +490,6 @@ router.post(
 );
 
 // CRUD Restaurants END
-
 
 // CRUD Managers BEGIN
 
@@ -553,7 +558,8 @@ router.post(
 );
 
 router.get(
-  "/managerMain/managerList/:ManagerId/edit", isManagerAndLoggedIn,
+  "/managerMain/managerList/:ManagerId/edit",
+  isManagerAndLoggedIn,
   (req, res, next) => {
     const { ManagerId } = req.params;
     Manager.findById(ManagerId)
@@ -577,7 +583,7 @@ router.post(
   isManagerAndLoggedIn,
   (req, res, next) => {
     const { ManagerId } = req.params;
-    const { username, email, birthday, country, city  } = req.body;
+    const { username, email, birthday, country, city } = req.body;
     Manager.findByIdAndUpdate(
       ManagerId,
       {
@@ -597,6 +603,62 @@ router.post(
 );
 // CRUD Manager END
 
+// CRUD Order Begin
 
+router.get("/managerMain/orderList", isManagerAndLoggedIn, (req, res, next) => {
+  Order.find()
+    .then((allOrders) => {
+      res.render("Manager/orderList", { orders: allOrders });
+    })
+    .catch((error) => {
+      console.log("Managers error: ", error);
+      next(error);
+    });
+});
 
+router.post(
+  "/managerMain/orderList/:OrderId/delete",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { OrderId } = req.params;
+    Order.findByIdAndDelete(OrderId)
+      .then(() => {
+        res.redirect(req.get("referer"));
+      })
+      .catch((error) => next(error));
+  }
+);
+// CRUD Order END
+
+// CRUD Customer Begin
+
+router.get(
+  "/managerMain/customerList",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    Customer.find()
+      .then((allCustomers) => {
+        res.render("Manager/customerList", { customers: allCustomers });
+      })
+      .catch((error) => {
+        console.log("Managers error: ", error);
+        next(error);
+      });
+  }
+);
+
+router.post(
+  "/managerMain/customerList/:CustomerId/delete",
+  isManagerAndLoggedIn,
+  (req, res, next) => {
+    const { CustomerId } = req.params;
+    Customer.findByIdAndDelete(CustomerId)
+      .then(() => {
+        res.redirect(req.get("referer"));
+      })
+      .catch((error) => next(error));
+  }
+);
+
+// CRUD Customer END
 module.exports = router;

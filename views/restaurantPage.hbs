@@ -14,13 +14,25 @@
       {{#each restaurant.menu}}
         <div class="mb-3">
           <div class="card d-flex flex-row align-items-md-center">
-            <img src="{{image}}" alt="{{name}} Image" class="card-img-top" style="width: 130px">
+            <img
+              src="{{image}}"
+              alt="{{name}} Image"
+              class="card-img-top"
+              style="width: 130px"
+            />
             <div class="card-body">
               <h5 class="card-title">{{name}}</h5>
               <p class="card-text">Price: ${{price}}</p>
               <p class="card-text">Total: ${{total}}</p>
             </div>
+<<<<<<< HEAD
+            <button
+              class="btn btn-primary"
+              onclick="addToCart('{{name}}', {{price}})"
+            >Cart</button>
+=======
             <button class="m-4 btn btn-primary btn-lg btn-block" onclick="addToCart('{{name}}', {{price}})">Add</button>
+>>>>>>> 2b9671b80421b4dc0709ab7e99ce379d47558bca
           </div>
         </div>
       {{/each}}
@@ -40,27 +52,58 @@
     <form id="checkoutForm" class="mt-3" method="post" action="/checkout">
       <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" class="form-control" id="name" name="name" required value="{{userInSession.username}}">
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          required
+          value="{{userInSession.username}}"
+        />
       </div>
 
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" name="email" required value="{{userInSession.email}}">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          required
+          value="{{userInSession.email}}"
+        />
       </div>
 
       <div class="form-group">
         <label for="street">Address:</label>
-        <input type="text" class="form-control" id="street" name="street" required value="{{userInSession.street}}{{userInSession.housenumber}} - {{userInSession.postcode}} {{userInSession.city}} {{userInSession.country}}">
+        <input
+          type="text"
+          class="form-control"
+          id="street"
+          name="street"
+          required
+          value="{{userInSession.street}}{{userInSession.housenumber}} - {{userInSession.postcode}} {{userInSession.city}} {{userInSession.country}}"
+        />
       </div>
 
       <!-- Display restaurant information if needed -->
       <div class="form-group">
         <label for="restaurantName">Restaurant Name:</label>
-        <input type="text" class="form-control" id="restaurantName" name="restaurantName" value="{{restaurant.name}}">
+        <input
+          type="text"
+          class="form-control"
+          id="restaurantName"
+          name="restaurantName"
+          value="{{restaurant.name}}"
+        />
       </div>
 
       <div class="text-right mt-3">
-        <button type="submit" class="btn btn-primary">Checkout</button>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          class="btn btn-primary"
+        >Checkout</button>
       </div>
     </form>
   </div>
