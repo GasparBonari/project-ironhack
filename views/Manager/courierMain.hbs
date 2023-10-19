@@ -18,8 +18,11 @@ Id: {{userInSession._id}}<br>
     City: {{userInSession.city}}<br>
   </p>
 </body>
-
-
+<br/>
+<br/>
+<a href="/manager/courierMain/orderList">Veiw list of orders</a>
+<br/>
+<br/>
 <form action="/manager/courier/{{userInSession._id}}/edit" method="POST">
   <button>Edit {{userInSession.username}} account</button>
 </form>
