@@ -4,6 +4,7 @@
 
     <label>
       <input
+        class="form-control"
         type="text"
         name="username"
         placeholder="Username"
@@ -13,6 +14,7 @@
 
     <label>
       <input
+        class="form-control"
         type="email"
         name="email"
         placeholder="eMail"
@@ -22,6 +24,7 @@
 
     <label>
       <input
+        class="form-control"
         type="password"
         name="password"
         placeholder="Password"
@@ -31,6 +34,7 @@
 
     <label>
       <input
+        class="form-control"
         type="password"
         name="password2"
         placeholder="Retype password"
@@ -38,7 +42,7 @@
       />
     </label>
 
-    <button type="submit">Create customer account</button>
+    <button class="btn btn-primary" type="submit">Create customer account</button>
 
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>

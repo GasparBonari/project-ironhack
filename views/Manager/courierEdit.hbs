@@ -5,28 +5,48 @@
 
   <form action="/manager/courier/{{userInSession._id}}/edit" method="post">
 
-
     <label>
       name:
-      <input type="text" name="fullname" value="{{userInSession.username}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="fullname"
+        value="{{userInSession.username}}"
+      />
     </label>
 
     <label>
       eMail:
-      <input type="text" name="email" value="{{userInSession.email}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="email"
+        value="{{userInSession.email}}"
+      />
     </label>
 
     <label>
       Country:
-      <input type="text" name="country" value="{{userInSession.country}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="country"
+        value="{{userInSession.country}}"
+      />
     </label>
 
-        <label>
+    <label>
       City:
-      <input type="text" name="city" value="{{userInSession.city}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="city"
+        value="{{userInSession.city}}"
+      />
     </label>
 
-      <button type="submit">Save changes for {{userInSession.username}}</button>
+    <button class="btn btn-primary" type="submit">Save changes for
+      {{userInSession.username}}</button>
   </form>
 
 {{else}}

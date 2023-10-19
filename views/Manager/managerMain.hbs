@@ -1,53 +1,213 @@
-<h1>Restaurant management</h1>
 {{#if userInSession}}
-  <head>
-    <h2>This is your page, {{userInSession.username}}!</h2>
-  </head>
-  <body>
-    <p>
-      name:
-      {{userInSession.username}}<br />
-      Id:
-      {{userInSession._id}}<br />
-    </p>
 
-    <p>eMail: {{userInSession.email}}</p><br />
-    <p>
-      Role:
-      {{userInSession.role}}<br />
-    </p>
-    <p>
-      Adress:<br />
-      Country:
-      {{userInSession.country}}<br />
-      City:
-      {{userInSession.city}}<br />
-    </p>
-  </body>
+  <h1>Manager Dashboard!</h1>
 
-  <a href="/manager/managerMain/createRestaurant">Create new restaurant</a>
-  <br />
-  <a href="/manager/managerMain/restaurantList">Restaurant list</a>
-  <br />
-  <a href="/manager/managerMain/managerCreate">Create new Manager</a>
-  <br />
-  <a href="/manager/managerMain/managerList">List of all Managers</a>
-  <br />
-  <a href="/manager/managerMain/courierCreate">Create new Courier</a>
-  <br />
-  <a href="/manager/managerMain/courierList">List of all Couriers</a>
-  <hr />
+  <div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button
+          class="accordion-button"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseOne"
+          aria-expanded="true"
+          aria-controls="collapseOne"
+        >
+          Manage this account:
+          {{userInSession.username}}
+        </button>
+      </h2>
+      <div
+        id="collapseOne"
+        class="accordion-collapse collapse show"
+        aria-labelledby="headingOne"
+        data-bs-parent="#accordionExample"
+      >
+        <div class="accordion-body">
+          <div class="row">
+            <p>
+              Name:
+              {{userInSession.username}}
+              Role:
+              {{userInSession.role}}
+              | eMail:
+              {{userInSession.email}}
+              | Country:
+              {{userInSession.country}}
+              | City:
+              {{userInSession.city}}
 
-  <form action="/manager/{{userInSession._id}}/edit" method="POST">
-    <button>Edit {{userInSession.username}} account</button>
-  </form>
+              <form
+                class="form-inline pull-left"
+                action="/manager/{{userInSession._id}}/edit"
+                method="POST"
+              >
+                <button class="btn btn-primary">Edit
+                  {{userInSession.username}}
+                  account</button>
+              </form>
 
-  <form
-    action="/manager/managerMain/{{userInSession._id}}/delete"
-    method="POST"
-  >
-    <button>Delete {{userInSession.username}} account</button>
-  </form>
+              <!-- Button trigger modal -->
+              <a><button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#deleteAccountModal"
+                >Delete account</button></a>
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                id="deleteAccountModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="deleteAccountModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteAccountModalLabel">⚠️
+                        Caution</h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Account "{{userInSession.username}}" will be removed
+                      permanently from database and can't be undone!
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >Close</button>
+                      <form
+                        action="/manager/managerMain/{{userInSession._id}}/delete"
+                        method="POST"
+                        class="form-inline pull-left"
+                      >
+                        <button class="btn btn-danger">Delete account
+                          {{userInSession.username}}</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseTwo"
+          aria-expanded="false"
+          aria-controls="collapseTwo"
+        >
+          Restaurant Management
+        </button>
+      </h2>
+      <div
+        id="collapseTwo"
+        class="accordion-collapse collapse"
+        aria-labelledby="headingTwo"
+        data-bs-parent="#accordionExample"
+      >
+        <div class="accordion-body">
+          <div class="col">
+            <a
+              href="/manager/managerMain/createRestaurant"
+              class="btn btn-primary"
+            >Create new restaurant</a>
+            <a
+              href="/manager/managerMain/restaurantList"
+              class="btn btn-primary"
+            >Restaurant List</a>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseThree"
+            aria-expanded="false"
+            aria-controls="collapseThree"
+          >
+            User Management
+          </button>
+        </h2>
+        <div
+          id="collapseThree"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingThree"
+          data-bs-parent="#accordionExample"
+        >
+          <div class="accordion-body">
+            <a
+              href="/manager/managerMain/managerCreate"
+              class="btn btn-primary"
+            >Create new Manager</a>
+            <a
+              href="/manager/managerMain/managerList"
+              class="btn btn-primary"
+            >List of all Managers</a>
+            <a
+              href="/manager/managerMain/courierCreate"
+              class="btn btn-primary"
+            >Create new Courier</a>
+            <a
+              href="/manager/managerMain/courierList"
+              class="btn btn-primary"
+            >List of all Couriers</a>
+            <a
+              href="/manager/managerMain/customerList"
+              class="btn btn-primary"
+            >List of all Customers</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseFour"
+          aria-expanded="false"
+          aria-controls="collapseFour"
+        >
+          Order Management
+        </button>
+      </h2>
+      <div
+        id="collapseFour"
+        class="accordion-collapse collapse"
+        aria-labelledby="headingFour"
+        data-bs-parent="#accordionExample"
+      >
+        <div class="accordion-body">
+          <a href="/manager/managerMain/orderList" class="btn btn-primary">List
+            of all Orders</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {{else}}
 

@@ -7,22 +7,38 @@
 
     <label>
       eMail:
-      <input type="text" name="email" value="{{userInSession.email}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="email"
+        value="{{userInSession.email}}"
+      />
     </label>
 
     <label>
       Fullname:
-      <input type="text" name="fullname" value="{{userInSession.fullname}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="fullname"
+        value="{{userInSession.fullname}}"
+      />
     </label>
 
     <label>
       Street:
-      <input type="text" name="street" value="{{userInSession.street}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="street"
+        value="{{userInSession.street}}"
+      />
     </label>
 
     <label>
       Housenumber:
       <input
+        class="form-control"
         type="text"
         name="housenumber"
         value="{{userInSession.housenumber}}"
@@ -31,20 +47,36 @@
 
     <label>
       Postcode:
-      <input type="text" name="postcode" value="{{userInSession.postcode}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="postcode"
+        value="{{userInSession.postcode}}"
+      />
     </label>
 
     <label>
       City:
-      <input type="text" name="city" value="{{userInSession.city}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="city"
+        value="{{userInSession.city}}"
+      />
     </label>
 
     <label>
       Country:
-      <input type="text" name="country" value="{{userInSession.country}}" />
+      <input
+        class="form-control"
+        type="text"
+        name="country"
+        value="{{userInSession.country}}"
+      />
     </label>
 
-    <button type="submit">Save changes for {{userInSession.username}}</button>
+    <button class="btn btn-primary" type="submit">Save changes for
+      {{userInSession.username}}</button>
   </form>
 
 {{else}}

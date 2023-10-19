@@ -1,13 +1,13 @@
 <h2>You have successfully logged out!</h2>
-<a href="/">Go to Home page</a>
+<a class="btn btn-secondary" href="/">Go to Home page</a>
 
 <div id="login-form">
   <h2>Customer Log In again</h2>
-  <p>Delete value for production</p>
   <form action="/customer/CustomerLogin" method="POST">
 
     <label>
       <input
+        class="form-control"
         type="text"
         name="username"
         placeholder="Username"
@@ -17,6 +17,7 @@
 
     <label>
       <input
+        class="form-control"
         type="password"
         name="password"
         placeholder="Password"
@@ -24,7 +25,7 @@
       />
     </label>
 
-    <button type="submit">Log In</button>
+    <button class="btn btn-primary" type="submit">Log In</button>
 
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>

@@ -2,8 +2,7 @@
   <h1>Welcome to your profile page, {{userInSession.username}}!</h1>
   <h2>Your {{userInSession.username}} account details!</h2>
 <hr />
-   <a href="/customer/{{userInSession._id}}/edit">Edit {{userInSession.username}} details</a>
-   <p>Id: {{userInSession._id}} (remove this for production)</p>
+   <a class="btn btn-primary" href="/customer/{{userInSession._id}}/edit">Edit {{userInSession.username}} details</a>
   <hr />
   
   <p>eMail: {{userInSession.email}}</p>
@@ -17,12 +16,12 @@
   <p>Order history:</p>
   <ul>
     {{#each userInSession.order}}
-      <li>{{this.name}}</li>
+      <li>Restaurant: {{this.name}}</li>
     {{/each}}
   </ul>
   <hr />
   <form action="/customer/customerProfile/{{userInSession._id}}/delete" method="POST">
-    <button>Delete {{userInSession.username}} account</button>
+    <button class="btn btn-primary">Delete {{userInSession.username}} account</button>
   </form>
 
 

@@ -4,6 +4,7 @@
 
     <label>
       <input
+        class="form-control"
         type="text"
         name="username"
         placeholder="courier_name"
@@ -12,13 +13,14 @@
 
     <label>
       <input
+        class="form-control"
         type="password"
         name="password"
         placeholder="Your password"
       />
     </label>
 
-    <button type="submit">Log In</button>
+    <button class="btn btn-primary" type="submit">Log In</button>
 
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>

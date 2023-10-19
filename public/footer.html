@@ -22,17 +22,32 @@
             >
           </li>
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-muted">Courier Managment</a>
+            <a
+              href="/manager/managerMain/courierList"
+              class="nav-link p-0 text-muted"
+              >Courier Managment</a
+            >
+          </li>
+          <li class="nav-item mb-2">
+            <a
+              class="nav-link p-0 text-muted"
+              href="/"
+              onclick="event.preventDefault();
+    document.getElementById('managerLogout-form').submit();"
+            >
+              Logout
+            </a>
           </li>
           <li class="nav-item mb-2">
             <form
               style="float: left; position: relative"
-              id="logout-form"
+              id="managerLogout-form"
               class="dropdown"
               action="/manager/managerLogout"
               method="POST"
+              style="display: none"
             >
-              <button>Manager Logout</button>
+              <button style="display: none">Manager Logout</button>
             </form>
           </li>
         </ul>
@@ -42,26 +57,34 @@
         <h5>Courier</h5>
         <ul class="nav flex-column">
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-muted">Login</a>
+            <a href="/manager/courierLogin" class="nav-link p-0 text-muted">Login</a>
           </li>
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-muted">Profile</a>
+            <a href="/manager/courierMain" class="nav-link p-0 text-muted">Profile</a>
           </li>
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-muted">Order list</a>
+            <a href="/manager/courierMain/orderList" class="nav-link p-0 text-muted">Order list</a>
           </li>
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-muted">FAQs</a>
+            <a
+              class="nav-link p-0 text-muted"
+              href="/"
+              onclick="event.preventDefault();
+    document.getElementById('courierLogout-form').submit();"
+            >
+              Logout
+            </a>
           </li>
           <li class="nav-item mb-2">
             <form
               style="float: left; position: relative"
-              id="logout-form"
+              id="courierLogout-form"
               class="dropdown"
-              action="/courier/courierLogout"
+              action="/manager/courierLogout"
               method="POST"
+              style="display: none"
             >
-              <button>Courier Logout</button>
+              <button style="display: none">Courier Logout</button>
             </form>
           </li>
         </ul>
@@ -86,17 +109,25 @@
             >
           </li>
           <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-muted">FAQs</a>
+            <a
+              class="nav-link p-0 text-muted"
+              href="/"
+              onclick="event.preventDefault();
+    document.getElementById('customerLogout-form').submit();"
+            >
+              Logout
+            </a>
           </li>
           <li class="nav-item mb-2">
             <form
               style="float: left; position: relative"
-              id="logout-form"
+              id="customerLogout-form"
               class="dropdown"
               action="/customer/customerLogout"
               method="POST"
+              style="display: none"
             >
-              <button>Customer Logout</button>
+              <button style="display: none">Customer Logout</button>
             </form>
           </li>
         </ul>
