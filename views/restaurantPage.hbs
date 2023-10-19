@@ -1,11 +1,11 @@
-<div class="row">
+<div class="row p-4" style="margin: 100px 0">
   <!-- Menu -->
   <div class="col-md-8">
 
     <div class="d-flex flex-row justify-content-between">
       <h2>Menu</h2>
 
-      <div class="text-left mt-3">
+      <div class="text-left">
         <a href="/" class="btn btn-secondary">Back to Restaurants</a>
       </div>
     </div>
@@ -25,10 +25,14 @@
               <p class="card-text">Price: ${{price}}</p>
               <p class="card-text">Total: ${{total}}</p>
             </div>
+<<<<<<< HEAD
             <button
               class="btn btn-primary"
               onclick="addToCart('{{name}}', {{price}})"
             >Cart</button>
+=======
+            <button class="m-4 btn btn-primary btn-lg btn-block" onclick="addToCart('{{name}}', {{price}})">Add</button>
+>>>>>>> 2b9671b80421b4dc0709ab7e99ce379d47558bca
           </div>
         </div>
       {{/each}}
@@ -36,7 +40,7 @@
   </div>
 
   <!-- Cart -->
-  <div class="col-md-4 border rounded p-3">
+  <div class="col-md-4 border rounded p-3 mt-5">
     <h2>Cart</h2>
     <ul id="cart-list" class="list-unstyled"></ul>
 
