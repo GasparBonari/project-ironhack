@@ -9,6 +9,11 @@
   </div>
 </header>
 
+<h2 class="greet m-4" style="text-align: center;">
+  {{userInSession.greet}}
+  {{userInSession.username}}
+</h2>
+
 <ul class="list-group mt-4 p-4" style="list-style: none;">
   {{#each restaurants}}
     <li class="mb-3" style="cursor: pointer;">
