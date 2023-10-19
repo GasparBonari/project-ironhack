@@ -23,6 +23,7 @@
             <div class="card-body">
               <h5 class="card-title">{{name}}</h5>
               <p class="card-text">Price: ${{price}}</p>
+              <p class="card-text">Total: ${{total}}</p>
             </div>
             <button
               class="btn btn-primary"
@@ -40,7 +41,7 @@
     <ul id="cart-list" class="list-unstyled"></ul>
 
     <div class="mt-3">
-      <h4>Total: $<span id="totalAmount">0.00</span></h4>
+      <h4>Total: $<span id="totalAmount" name="total">0.00</span></h4>
     </div>
 
     <!-- Form section -->
