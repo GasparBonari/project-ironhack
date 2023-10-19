@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = new Router();
 const Courier = require('../models/Courier.models'); // Import the Courier model
+const Order = require('../models/Order.model'); 
 const mongoose = require('mongoose');
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
@@ -301,5 +302,23 @@ router.post(
   }
 );
 // CRUD Manager END
+
+
+//List of all Orders:
+
+router.get(
+  "/courierMain/orderList",
+  courierLoggedin,
+  (req, res, next) => {
+    Order.find()
+      .then((allOrders) => {
+        res.render("Manager/orderList", { orders: allOrders });
+      })
+      .catch((error) => {
+        console.log("Couriers error: ", error);
+        next(error);
+      });
+  }
+);
 
 module.exports = router;

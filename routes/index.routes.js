@@ -50,7 +50,7 @@ router.post('/updateCart', (req, res) => {
 
 router.post('/checkout', async (req, res) => {
   try {
-    const { name, email, street, restaurantName } = req.body;
+    const { name, email, street, restaurantName, total } = req.body;
 
     // Retrieve cartItems from the session
     const cartItems = req.session.cartItems || [];
