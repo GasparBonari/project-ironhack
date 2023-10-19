@@ -1,0 +1,55 @@
+<nav class="navbar px-4">
+  <div class="btn-group dropdown">
+    <button
+      type="button"
+      class="btn btn-secondary dropdown-toggle"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+      style="float: left"
+    >
+      Management
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <div class="accordion" id="managementAccordion">
+        <button class="dropdown-item" type="button" data-toggle="collapse" data-target="#managerAccordion">Manager</button>
+        <div id="managerAccordion" class="collapse" data-parent="#managementAccordion">
+          <a class="dropdown-item" href="/manager/managerLogin">Manager Log in</a>
+          <a class="dropdown-item" href="/manager/managerCreate">Manager Sign up</a>
+          <a class="dropdown-item" href="/manager/managerMain">Manager Profile</a>
+        </div>
+  
+        <button class="dropdown-item" type="button" data-toggle="collapse" data-target="#courierAccordion">Courier</button>
+        <div id="courierAccordion" class="collapse" data-parent="#managementAccordion">
+          <a class="dropdown-item" href="/manager/courierLogin">Courier Log in</a>
+          <a class="dropdown-item" href="/manager/courierCreate">Courier Sign up</a>
+          <a class="dropdown-item" href="/manager/courierMain">Courier Profile</a>
+        </div>
+      </div>
+  
+      <button class="dropdown-item" type="button">Become a partner</button>
+    </div>
+  </div>
+
+  <a href="/"><img class="logo" src="/images/logo.png" alt="HOME" height="100px" /></a>
+
+  <div class="btn-group dropdown" style="float: right">
+    <button
+      type="button"
+      class="btn btn-secondary dropdown-toggle"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      Customer
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item" href="/customer/customerLogin">Log in</a>
+      <a class="dropdown-item" href="/customer/customerSignup">Sign up</a>
+      <a class="dropdown-item" href="/customer/customerProfile">Profile</a>
+      <form id="logout-form" class="dropdown-item" action="/customer/customerLogout" method="POST">
+        <button>Logout</button>
+      </form>
+    </div>
+  </div>
+</nav>

@@ -1,5 +1,6 @@
-<h1>Restaurant management</h1>
-{{#if userInSession}}
+<div style="margin-top: 150px; margin-left: 30px;">
+  <h1>Restaurant management</h1>
+  {{#if userInSession}}
   <head>
     <h2>This is your page, {{userInSession.username}}!</h2>
   </head>
@@ -49,8 +50,10 @@
     <button>Delete {{userInSession.username}} account</button>
   </form>
 
-{{else}}
+  {{else}}
 
-  <br /><p>You need to login to access this page!</p>
+    <br /><p>You need to login to access this page!</p>
 
-{{/if}}
+  {{/if}}
+
+</div>

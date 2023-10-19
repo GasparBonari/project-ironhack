@@ -1,5 +1,6 @@
 body {
-  padding: 50px;
+  padding: 0;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -22,13 +23,64 @@ h1 {
 }
 
 .navbar {
-  position: relative;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  z-index: 2;
 }
 
-.brand {
+.logo{
+  width: 200px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.btn-add-to-cart {
+  animation: fadeIn 0.5s ease;
+}
+
+
+header {
+  position: relative;
+  height: 100vh;
+  background-color:  #98fb98a8;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+}
+
+.text-container {
+  width: 50%;
+  z-index: 2;
+  color: black;
+}
+
+.image-container {
+  width: 50%;
+  z-index: 1;
+}
+
+.line {
   position: absolute;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -50px !important; /* 50% of your logo width */
+  width: 100%;
+  height: 100%;
+  transform-origin: bottom left;
+  transform: skewX(311deg);
+  background: #ffcbc5;
+  z-index: 1;
+}
+
+img {
+  width: 100%;
+  height: auto;
   display: block;
 }

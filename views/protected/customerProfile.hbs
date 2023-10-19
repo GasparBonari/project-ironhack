@@ -1,33 +1,31 @@
-{{#if userInSession}}
-  <h1>Welcome to your profile page, {{userInSession.username}}!</h1>
-  <h2>Your {{userInSession.username}} account details!</h2>
-<hr />
-   <a href="/customer/{{userInSession._id}}/edit">Edit {{userInSession.username}} details</a>
-   <p>Id: {{userInSession._id}} (remove this for production)</p>
-  <hr />
+<div style="margin-top: 150px; margin-left: 20px;">
+  {{#if userInSession}}
+    <h1>Welcome to your profile page, {{userInSession.username}}!</h1>
+    <h2>Your {{userInSession.username}} account details!</h2>
+    <hr />
+    <a href="/customer/{{userInSession._id}}/edit">Edit {{userInSession.username}} details</a>
+    <p>Id: {{userInSession._id}} (remove this for production)</p>
+    <hr />
   
-  <p>eMail: {{userInSession.email}}</p>
-  <p>Fullname: {{userInSession.fullname}} | (Role: {{userInSession.role}})</p>
-  <p>Adress:
-    {{userInSession.street}}
-    {{userInSession.housenumber}} - 
-    {{userInSession.postcode}}
-    {{userInSession.city}}
-    {{userInSession.country}}
-  <p>Order history:</p>
-  <ul>
-    {{#each userInSession.order}}
-      <li>{{this.name}}</li>
-    {{/each}}
-  </ul>
-  <hr />
-  <form action="/customer/customerProfile/{{userInSession._id}}/delete" method="POST">
-    <button>Delete {{userInSession.username}} account</button>
-  </form>
-
-
-{{else}}
-
-  <br /><p>You need to login to access this page!</p>
-
-{{/if}}
+    <p>eMail: {{userInSession.email}}</p>
+    <p>Fullname: {{userInSession.fullname}} | (Role: {{userInSession.role}})</p>
+    <p>Adress:
+      {{userInSession.street}}
+      {{userInSession.housenumber}} - 
+      {{userInSession.postcode}}
+      {{userInSession.city}}
+      {{userInSession.country}}
+    <p>Order history:</p>
+    <ul>
+      {{#each userInSession.order}}
+        <li>{{this.name}}</li>
+      {{/each}}
+    </ul>
+    <hr />
+    <form action="/customer/customerProfile/{{userInSession._id}}/delete" method="POST">
+      <button>Delete {{userInSession.username}} account</button>
+    </form>
+  {{else}}
+    <br /><p>You need to login to access this page!</p>
+  {{/if}}
+</div>

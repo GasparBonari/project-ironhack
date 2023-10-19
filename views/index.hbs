@@ -1,4 +1,20 @@
-<ul class="list-group" style="list-style: none;">
+<header>
+  <div class="text-container">
+      <h1>FoodFeast</h1>
+      <p>Swift, Seamless, and Right at Your Doorstep!</p>
+  </div>
+  <div class="line"></div>
+  <div class="image-container">
+      <img src="/images/header.gif">
+  </div>
+</header>
+
+<h2 class="greet m-4" style="text-align: center;">
+  {{userInSession.greet}}
+  {{userInSession.username}}
+</h2>
+
+<ul class="list-group mt-4 p-4" style="list-style: none;">
   {{#each restaurants}}
     <li class="mb-3" style="cursor: pointer;">
       <a href="/restaurants/{{_id}}" class="text-decoration-none">
