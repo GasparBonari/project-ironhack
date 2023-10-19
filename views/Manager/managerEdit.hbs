@@ -1,4 +1,5 @@
-{{#if userInSession}}
+<div style="margin-top: 150px; padding: 20px">
+  {{#if userInSession}}
 
   <h2>Edit Manager:
     {{userInSession.username}}</h2>
@@ -49,8 +50,9 @@
       {{userInSession.username}}</button>
   </form>
 
-{{else}}
+  {{else}}
 
-  <br /><p>Still no logged in user, sorry!</p>
+    <br /><p>Still no logged in user, sorry!</p>
 
-{{/if}}
+  {{/if}}
+</div>

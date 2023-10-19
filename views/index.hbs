@@ -1,13 +1,22 @@
-<header>
-  <div class="text-container">
-      <h1>FoodFeast</h1>
-      <p>Swift, Seamless, and Right at Your Doorstep!</p>
+<div class="start-page">
+  <header>
+    <div class="text-container">
+        <div class="title">FolloverEat</div>
+        <p>Swift, Seamless, and Right at Your Doorstep!</p>
+    </div>
+    <div class="line"></div>
+    <div class="image-container">
+        <img src="/images/header.gif">
+    </div>
+  </header>
+
+  <div class="container_mouse" onclick="scrollToGreet()">
+      <span class="mouse-btn">
+          <span class="mouse-scroll"></span>
+      </span>
+      <span>Scroll Down</span>
   </div>
-  <div class="line"></div>
-  <div class="image-container">
-      <img src="/images/header.gif">
-  </div>
-</header>
+</div>
 
 <h2 class="greet m-4" style="text-align: center;">
   {{userInSession.greet}}
@@ -39,3 +48,11 @@
     </li>
   {{/each}}
 </ul>
+
+<script>
+  function scrollToGreet() {
+    var targetElement = document.querySelector('.greet');
+
+    targetElement.scrollIntoView({ behavior: 'smooth' });
+  }
+</script>

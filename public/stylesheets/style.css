@@ -46,6 +46,10 @@ h1 {
   animation: fadeIn 0.5s ease;
 }
 
+.start-page{
+  display: flex;
+  flex-direction: column;
+}
 
 header {
   position: relative;
@@ -53,6 +57,7 @@ header {
   background-color:  #98fb98a8;
   overflow: hidden;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 30px;
@@ -83,4 +88,68 @@ img {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* button scroll down */
+
+.container_mouse {
+  position: absolute;
+  bottom: 0;
+  left: 45%;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.container_mouse .mouse-btn {
+  margin: 10px auto;
+  width: 40px;
+  height: 80px;
+  border: 4px solid black;
+  border-radius: 30px;
+  display: flex;
+  z-index: 9999;
+}
+
+.container_mouse .mouse-btn .mouse-scroll {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(170deg, rgba(122, 122, 124, 0.918), rgb(123, 124, 124));
+  border-radius: 50%;
+  margin: auto;
+  animation: scrolling 1s linear infinite;
+  z-index: 9999;
+
+}
+
+@keyframes scrolling {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(20px);
+  }
+}
+
+.title {
+  font-family: 'Calligraffitti', cursive;
+  font-weight: 700;
+  font-size: 4rem;
+  text-shadow: -15px 5px 20px #ced0d3;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #F9f1cc;
+  text-shadow: 5px 5px 0px #FFB650, 
+    10px 10px 0px #FFD662, 
+    15px 15px 0px  #FF80BF, 
+    20px 20px 0px #EF5097, 
+    25px 25px 0px #6868AC, 
+    30px 30px 0px #90B1E0;
 }

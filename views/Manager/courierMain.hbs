@@ -1,4 +1,5 @@
-{{#if userInSession}}
+<div style="margin-top: 150px; padding: 20px">
+  {{#if userInSession}}
   <head>
     <h2>This is your page, {{userInSession.username}}!</h2>
   </head>
@@ -36,6 +37,7 @@
       {{userInSession.username}}
       account</button>
   </form>
-{{else}}
-  <h2>Smth. not correct!</h2>
-{{/if}}
+  {{else}}
+    <h2>Smth. not correct!</h2>
+  {{/if}}
+</div>
