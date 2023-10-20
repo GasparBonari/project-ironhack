@@ -1,0 +1,26 @@
+<ul class="list-group" style="list-style: none;">
+  {{#each orders}}
+    <li class="mb-3">
+      <a class="text-decoration-none">
+        <div class="card border-dark shadow">
+          <div class="row g-0">
+            <div class="col-md-9">
+              <div class="card-body">
+
+                <h2 class="card-title">Order details:</h2>
+                <p class="card-text">Name: {{name}} (Order-Id: {{_id}})</p>
+                <p class="card-text">eMail: {{email}}</p>
+                <p class="card-text">Address: {{address}}</p>
+                <p class="card-text">Restaurant: {{restaurantName}}</p>
+                {{#each dish}}
+                  <p class="card-text">Dish: {{name}}</p>
+                  <p class="card-text">Price: {{price}}</p>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </li>
+  {{/each}}
+</ul>

@@ -38,30 +38,29 @@ router.post("/managerLogin", (req, res, next) => {
   }
 
   // Search the database for a user with the username submitted in the form
-  Manager.findOne({ username })
-    .then((manager) => {
-      if (!manager) {
-        console.log("Login failed, account not registered. ");
-        return res.render("Manager/managerLogin", {
-          errorMessage:
-            "User not found and/or incorrect password, please try again!",
-        });
-      } else if (bcryptjs.compareSync(password, manager.passwordHash)) {
-        //******* SAVE THE USER IN THE SESSION ********//
+  Manager.findOne({ username }).then((manager) => {
+    if (!manager) {
+      console.log("Login failed, account not registered. ");
+      return res.render("Manager/managerLogin", {
+        errorMessage:
+          "User not found and/or incorrect password, please try again!",
+      });
+    } else if (bcryptjs.compareSync(password, manager.passwordHash)) {
+      //******* SAVE THE USER IN THE SESSION ********//
 
-        req.session.currentUser = manager;
-        console.log("Session data after login:", req.session);
-        res.redirect("/manager/managerMain");
-        //res.render("Manager/managerMain");
-      } else {
-        console.log("Incorrect password. ");
-        res.render("Manager/managerLogin", {
-          errorMessage:
-            "User not found and/or incorrect password, please try again!",
-        });
-      }
-    })
-    /*.catch((error) => {
+      req.session.currentUser = manager;
+      console.log("Session data after login:", req.session);
+      res.redirect("/manager/managerMain");
+      //res.render("Manager/managerMain");
+    } else {
+      console.log("Incorrect password. ");
+      res.render("Manager/managerLogin", {
+        errorMessage:
+          "User not found and/or incorrect password, please try again!",
+      });
+    }
+  });
+  /*.catch((error) => {
       if (error) {
         res.render("Manager/managerLogin", {
           errorMessage:
@@ -608,7 +607,7 @@ router.post(
 router.get("/managerMain/orderList", isManagerAndLoggedIn, (req, res, next) => {
   Order.find()
     .then((allOrders) => {
-      res.render("Manager/orderList", { orders: allOrders });
+      res.render("Manager/managerOrderList", { orders: allOrders });
     })
     .catch((error) => {
       console.log("Managers error: ", error);

@@ -1,7 +1,7 @@
-<div style="margin-top: 150px; padding: 20px">
-  {{#if userInSession}}
 
-  <h1 style="margin-top: 150px; margin-left: 90px;">Manager Dashboard!</h1>
+{{#if userInSession}}
+<div class="form-horizontal">
+  <h1 style="margin-top: 150px;">Manager Dashboard!</h1>
 
   <div class="accordion" id="accordionExample">
     <div class="accordion-item">
@@ -78,7 +78,7 @@
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body alert alert-danger" role="alert">
                       Account "{{userInSession.username}}" will be removed
                       permanently from database and can't be undone!
                     </div>
@@ -165,7 +165,7 @@
             <a
               href="/manager/managerMain/managerList"
               class="btn btn-primary"
-            >List of all Managers</a>
+            >Managers List</a>
             <a
               href="/manager/managerMain/courierCreate"
               class="btn btn-primary"
@@ -173,11 +173,11 @@
             <a
               href="/manager/managerMain/courierList"
               class="btn btn-primary"
-            >List of all Couriers</a>
+            >Couriers List</a>
             <a
               href="/manager/managerMain/customerList"
               class="btn btn-primary"
-            >List of all Customers</a>
+            >Customers List</a>
           </div>
 
         </div>
@@ -203,13 +203,12 @@
         data-bs-parent="#accordionExample"
       >
         <div class="accordion-body">
-          <a href="/manager/managerMain/orderList" class="btn btn-primary">List
-            of all Orders</a>
+          <a href="/manager/managerMain/orderList" class="btn btn-primary">Orders List</a>
         </div>
       </div>
     </div>
   </div>
-
+</div>
   {{else}}
 
     <br /><p>You need to login to access this page!</p>

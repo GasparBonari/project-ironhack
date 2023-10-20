@@ -1,43 +1,98 @@
 <div style="margin-top: 150px; padding: 20px">
   {{#if userInSession}}
   <head>
-    <h2>This is your page, {{userInSession.username}}!</h2>
+    <h2>Courier profile: {{userInSession.username}}!</h2>
   </head>
-  <body>
     <p>
       name:
-      {{userInSession.username}}<br />
-      Id:
-      {{userInSession._id}}<br />
+      {{userInSession.username}}
     </p>
 
-    <p>eMail: {{userInSession.email}}</p><br />
-    <p>
+    <p>eMail:
+      {{userInSession.email}}
       Role:
-      {{userInSession.role}}<br />
-    </p>
+      {{userInSession.role}}</p>
     <p>
       Adress:<br />
-      Country:
-      {{userInSession.country}}<br />
       City:
       {{userInSession.city}}<br />
+      Country:
+      {{userInSession.country}}<br />
+
     </p>
-  </body>
+    <a href="/manager/courierMain/orderlist" class="btn btn-primary mb-3">Orders
+      list</a>
+    <form action="/manager/courier/{{userInSession._id}}/edit" method="POST">
+      <button class="btn btn-primary">Edit
+        {{userInSession.username}}
+        account</button>
+    </form>
 
-  <form action="/manager/courier/{{userInSession._id}}/edit" method="POST">
-    <button>Edit {{userInSession.username}} account</button>
-  </form>
+    <!-- Button trigger modal -->
+    <a><button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#deleteAccountModal"
+      >Delete account</button></a>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="deleteAccountModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="deleteAccountModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteAccountModalLabel">⚠️ Caution</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body alert alert-danger" role="alert">
+            Account "{{userInSession.username}}" will be removed permanently
+            from database and can't be undone!
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >Close</button>
+            <form
+              action="/manager/courierMain/{{userInSession._id}}/delete"
+              method="POST"
+              class="form-inline pull-left"
+            >
+              <button class="btn btn-danger">Delete account
+                {{userInSession.username}}</button>
+            </form>
 
-  <form
-    action="/manager/courierMain/{{userInSession._id}}/delete"
-    method="POST"
-  >
-    <button class="btn btn-primary">Delete
-      {{userInSession.username}}
-      account</button>
-  </form>
-  {{else}}
-    <h2>Smth. not correct!</h2>
-  {{/if}}
+            <form
+              action="/manager/courierMain/{{userInSession._id}}/delete"
+              method="POST"
+            >
+              <button class="btn btn-primary">Delete
+                {{userInSession.username}}
+                account</button>
+            </form>
+            {{else}}
+              <h2>Smth. not correct!</h2>
+            {{/if}}
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
+{{else}}
+  <h2>Smth. not correct!</h2>
+{{/if}}
