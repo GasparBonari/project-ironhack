@@ -1,11 +1,11 @@
 <div id="form" style="margin-top: 150px; margin-left: 30px;">
-  <h2>New Courier registration form</h2>
-  <form action="/manager/courierCreate" method="POST">
 
+  <form action="/manager/courierCreate" method="POST" class="form-horizontal">
+    <h2>New Courier registration form</h2>
     <label>
       Couriername
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="username"
         placeholder="courier_name"
@@ -15,7 +15,7 @@
     <label>
       Email
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="email"
         name="email"
         placeholder="newCourier@gmail.com"
@@ -25,7 +25,7 @@
     <label>
       Password
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="password"
         name="password"
         placeholder="********"
@@ -35,7 +35,7 @@
     <label>
       Password check
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="password"
         name="password2"
         placeholder="********"

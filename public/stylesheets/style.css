@@ -29,7 +29,7 @@ h1 {
   z-index: 2;
 }
 
-.logo{
+.logo {
   width: 200px;
 }
 
@@ -46,11 +46,10 @@ h1 {
   animation: fadeIn 0.5s ease;
 }
 
-
 header {
   position: relative;
   height: 100vh;
-  background-color:  #98fb98a8;
+  background-color: #98fb98a8;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -83,4 +82,11 @@ img {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.form-horizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacer !important;
 }

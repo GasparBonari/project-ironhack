@@ -1,31 +1,5 @@
 <ul class="list-group" style="list-style: none;">
   {{#each orders}}
-    <li class="mb-3" style="cursor: pointer;">
-      <a href="/orders/{{_id}}" class="text-decoration-none">
-        <div class="card border-dark shadow">
-          <div class="row g-0">
-            <div class="col-md-9">
-              <div class="card-body">
-                <h2 class="card-title">Name of restaurant: {{restaurantName}}</h2>
-                <p class="card-text">Name of customer: {{name}}</p>
-                <p class="card-text">Delivery address: {{address}}</p>
-                <p>Order:</p></br>
-                {{#each dish}}
-                <p class="card-text">Dish: {{name}}</p>
-                <p class="card-text">Price: {{price}}</p>
-                 {{/each}}
-                 <p class="card-text">Price: {{total}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </li>
-  {{/each}}
-</ul>
-
-<ul class="list-group" style="list-style: none;">
-  {{#each orders}}
     <li class="mb-3">
       <a class="text-decoration-none">
         <div class="card border-dark shadow">
