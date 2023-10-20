@@ -1,5 +1,5 @@
 {{#if userInSession}}
-
+<div class="form-horizontal">
   <h1 style="margin-top: 150px;">Manager Dashboard!</h1>
 
   <div class="accordion" id="accordionExample">
@@ -164,7 +164,7 @@
             <a
               href="/manager/managerMain/managerList"
               class="btn btn-primary"
-            >List of all Managers</a>
+            >Managers List</a>
             <a
               href="/manager/managerMain/courierCreate"
               class="btn btn-primary"
@@ -172,11 +172,11 @@
             <a
               href="/manager/managerMain/courierList"
               class="btn btn-primary"
-            >List of all Couriers</a>
+            >Couriers List</a>
             <a
               href="/manager/managerMain/customerList"
               class="btn btn-primary"
-            >List of all Customers</a>
+            >Customers List</a>
           </div>
 
         </div>
@@ -202,13 +202,12 @@
         data-bs-parent="#accordionExample"
       >
         <div class="accordion-body">
-          <a href="/manager/managerMain/orderList" class="btn btn-primary">List
-            of all Orders</a>
+          <a href="/manager/managerMain/orderList" class="btn btn-primary">Orders List</a>
         </div>
       </div>
     </div>
   </div>
-
+</div>
   {{else}}
 
     <br /><p>You need to login to access this page!</p>
