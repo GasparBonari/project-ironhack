@@ -61,7 +61,7 @@ router.post("/managerLogin", (req, res, next) => {
         });
       }
     })
-    .catch((error) => {
+    /*.catch((error) => {
       if (error) {
         res.render("Manager/managerLogin", {
           errorMessage:
@@ -80,7 +80,7 @@ router.post("/managerLogin", (req, res, next) => {
         console.log("next");
         next(error);
       }
-    }); // close .catch()
+    });*/ // close .catch()
 });
 
 // GET route ==> to display the signup form to Manager

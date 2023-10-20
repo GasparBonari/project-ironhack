@@ -1,6 +1,5 @@
-<<<<<<< HEAD
 {{#if userInSession}}
-  <h1>Welcome to your profile page, {{userInSession.username}}!</h1>
+  <h1 style="margin-top: 150px;">Welcome to your profile page, {{userInSession.username}}!</h1>
   <h2>Your {{userInSession.username}} account details!</h2>
 <hr />
    <a class="btn btn-primary" href="/customer/{{userInSession._id}}/edit">Edit {{userInSession.username}} details</a>
@@ -21,46 +20,63 @@
     {{/each}}
   </ul>
   <hr />
-  <form action="/customer/customerProfile/{{userInSession._id}}/delete" method="POST">
-    <button class="btn btn-primary">Delete {{userInSession.username}} account</button>
-  </form>
 
+<!-- Button trigger modal -->
+              <a><button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#deleteAccountModal"
+                >Delete account</button></a>
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                id="deleteAccountModal"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="deleteAccountModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteAccountModalLabel">⚠️
+                        Caution</h5>
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Account "{{userInSession.username}}" will be removed
+                      permanently from database and can't be undone!
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-dismiss="modal"
+                      >Close</button>
+                      <form
+                        action="/customer/customerProfile/{{userInSession._id}}/delete"
+                        method="POST"
+                        class="form-inline pull-left"
+                      >
+                        <button class="btn btn-danger">Delete account
+                          {{userInSession.username}}</button>
+                      </form>
+                        
+                    </div>
+                  </div>
+                </div>
+              </div>
 
 {{else}}
 
   <br /><p>You need to login to access this page!</p>
 
 {{/if}}
-=======
-<div style="margin-top: 150px; margin-left: 20px;">
-  {{#if userInSession}}
-    <h1>Welcome to your profile page, {{userInSession.username}}!</h1>
-    <h2>Your {{userInSession.username}} account details!</h2>
-    <hr />
-    <a href="/customer/{{userInSession._id}}/edit">Edit {{userInSession.username}} details</a>
-    <p>Id: {{userInSession._id}} (remove this for production)</p>
-    <hr />
-  
-    <p>eMail: {{userInSession.email}}</p>
-    <p>Fullname: {{userInSession.fullname}} | (Role: {{userInSession.role}})</p>
-    <p>Adress:
-      {{userInSession.street}}
-      {{userInSession.housenumber}} - 
-      {{userInSession.postcode}}
-      {{userInSession.city}}
-      {{userInSession.country}}
-    <p>Order history:</p>
-    <ul>
-      {{#each userInSession.order}}
-        <li>{{this.name}}</li>
-      {{/each}}
-    </ul>
-    <hr />
-    <form action="/customer/customerProfile/{{userInSession._id}}/delete" method="POST">
-      <button>Delete {{userInSession.username}} account</button>
-    </form>
-  {{else}}
-    <br /><p>You need to login to access this page!</p>
-  {{/if}}
-</div>
->>>>>>> 2b9671b80421b4dc0709ab7e99ce379d47558bca

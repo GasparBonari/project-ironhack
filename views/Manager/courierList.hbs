@@ -1,11 +1,21 @@
-<ul class="list-group" style="list-style: none;">
+<ul class="list-group">
   {{#each couriers}}
-    <li class="mb-3" style="cursor: pointer;">
-      <a href="/couriers/{{_id}}" class="text-decoration-none">
+    <li class="mb-3">
+      <a class="text-decoration-none">
         <div class="card border-dark shadow">
           <div class="row g-0">
             <div class="col-md-9">
               <div class="card-body">
+                <form
+                  class="card-text"
+                  action="/manager/managerMain/courierList/{{_id}}/delete"
+                  method="POST"
+                >
+                  <button
+                    class="btn btn-danger float-end"
+                    style="margin-bottom: 10px;"
+                  >Delete this account</button>
+                </form>
                 <h2 class="card-title">{{username}}</h2>
                 <p class="card-text">{{_id}}</p>
                 <p class="card-text">{{eMail}}</p>
