@@ -1,15 +1,19 @@
 <div style="margin-top: 150px; padding: 20px">
   {{#if userInSession}}
 
-  <h2>Edit Manager:
-    {{userInSession.username}}</h2>
+  <h2 style="margin-top: 150px; margin-left: 90px;"></h2>
 
-  <form action="/manager/{{userInSession._id}}/edit" method="post">
-
+  <form
+    action="/manager/{{userInSession._id}}/edit"
+    method="post"
+    class="form-horizontal"
+  >
+    <h2>Edit Manager:
+      {{userInSession.username}}</h2>
     <label>
       name:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="fullname"
         value="{{userInSession.username}}"
@@ -19,7 +23,7 @@
     <label>
       eMail:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="email"
         value="{{userInSession.email}}"
@@ -29,7 +33,7 @@
     <label>
       Country:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="country"
         value="{{userInSession.country}}"
@@ -39,7 +43,7 @@
     <label>
       City:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="city"
         value="{{userInSession.city}}"

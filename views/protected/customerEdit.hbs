@@ -1,14 +1,16 @@
 {{#if userInSession}}
 
-  <h2>Edit Customer:
-    {{userInSession.username}}</h2>
-
-  <form action="/customer/{{userInSession._id}}/edit" method="post">
-
+  <form
+    action="/customer/{{userInSession._id}}/edit"
+    method="post"
+    class="form-horizontal m-3"
+  >
+    <h2 style="margin-top: 150px; margin-left: 30px;">Edit Customer:
+      {{userInSession.username}}</h2>
     <label>
       eMail:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="email"
         value="{{userInSession.email}}"
@@ -18,7 +20,7 @@
     <label>
       Fullname:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="fullname"
         value="{{userInSession.fullname}}"
@@ -28,7 +30,7 @@
     <label>
       Street:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="street"
         value="{{userInSession.street}}"
@@ -38,7 +40,7 @@
     <label>
       Housenumber:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="housenumber"
         value="{{userInSession.housenumber}}"
@@ -48,7 +50,7 @@
     <label>
       Postcode:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="postcode"
         value="{{userInSession.postcode}}"
@@ -58,7 +60,7 @@
     <label>
       City:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="city"
         value="{{userInSession.city}}"
@@ -68,7 +70,7 @@
     <label>
       Country:
       <input
-        class="form-control"
+        class="form-control mb-3"
         type="text"
         name="country"
         value="{{userInSession.country}}"

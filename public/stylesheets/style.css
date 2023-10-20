@@ -29,7 +29,7 @@ h1 {
   z-index: 2;
 }
 
-.logo{
+.logo {
   width: 200px;
 }
 
@@ -54,7 +54,7 @@ h1 {
 header {
   position: relative;
   height: 100vh;
-  background-color:  #98fb98a8;
+  background-color: #98fb98a8;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -89,6 +89,7 @@ img {
   height: auto;
   display: block;
 }
+
 
 /* button scroll down */
 
@@ -153,3 +154,11 @@ img {
     25px 25px 0px #6868AC, 
     30px 30px 0px #90B1E0;
 }
+
+.form-horizontal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: spacer !important;
+}
+
