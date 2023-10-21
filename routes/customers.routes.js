@@ -173,8 +173,6 @@ router.get("/customerList", isLoggedIn, (req, res, next) => {
 });
 
 router.get("/customerProfile", isLoggedIn, async (req, res) => {
-
-  console.log("HEREEEEEEEEEEEEE")
   try {
     const userInSession = req.session.currentUser;
     const customer = await Customer.findById(userInSession._id);

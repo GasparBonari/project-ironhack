@@ -1,62 +1,64 @@
 <div style="margin-top: 150px; padding: 20px">
-  {{#if userInSession}}
+  <div class="row justify-content-center">
+    <div class="col-md-4 center-div">
+      {{#if userInSession}}
 
-  <h2 style="margin-top: 150px; margin-left: 90px;"></h2>
+      <form
+        action="/manager/{{userInSession._id}}/edit"
+        method="post"
+        class="form-horizontal"
+      >
+        <h2>Edit Manager:
+          {{userInSession.username}}</h2>
+        <label>
+          name:
+          <input
+            class="form-control mb-3"
+            type="text"
+            name="fullname"
+            value="{{userInSession.username}}"
+          />
+        </label>
 
-  <form
-    action="/manager/{{userInSession._id}}/edit"
-    method="post"
-    class="form-horizontal"
-  >
-    <h2>Edit Manager:
-      {{userInSession.username}}</h2>
-    <label>
-      name:
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="fullname"
-        value="{{userInSession.username}}"
-      />
-    </label>
+        <label>
+          eMail:
+          <input
+            class="form-control mb-3"
+            type="text"
+            name="email"
+            value="{{userInSession.email}}"
+          />
+        </label>
 
-    <label>
-      eMail:
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="email"
-        value="{{userInSession.email}}"
-      />
-    </label>
+        <label>
+          Country:
+          <input
+            class="form-control mb-3"
+            type="text"
+            name="country"
+            value="{{userInSession.country}}"
+          />
+        </label>
 
-    <label>
-      Country:
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="country"
-        value="{{userInSession.country}}"
-      />
-    </label>
+        <label>
+          City:
+          <input
+            class="form-control mb-3"
+            type="text"
+            name="city"
+            value="{{userInSession.city}}"
+          />
+        </label>
 
-    <label>
-      City:
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="city"
-        value="{{userInSession.city}}"
-      />
-    </label>
+        <button class="btn btn-primary" type="submit">Save changes for
+          {{userInSession.username}}</button>
+      </form>
 
-    <button class="btn btn-primary" type="submit">Save changes for
-      {{userInSession.username}}</button>
-  </form>
+      {{else}}
 
-  {{else}}
+        <br /><p>Still no logged in user, sorry!</p>
 
-    <br /><p>Still no logged in user, sorry!</p>
-
-  {{/if}}
+      {{/if}}
+    </div>
+  </div>
 </div>
