@@ -1,22 +1,26 @@
 <div style="margin-top: 150px; padding: 0 50px">
-    <h2>Order Confirmation</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-4 center-div">
+            <h2>Order Confirmation</h2>
 
-    <p>Thank you for your order, {{order.name}}!</p>
+            <p>Thank you for your order, {{order.name}}!</p>
 
-    <h3>Order Details:</h3>
+            <h3>Order Details:</h3>
 
-    <ul>
-        <li><strong>Name:</strong> {{order.name}}</li>
-        <li><strong>Email:</strong> {{order.email}}</li>
-        <li><strong>Address:</strong> {{order.address}}</li>
-        <li><strong>Restaurant Name:</strong> {{order.restaurantName}}</li>
-    </ul>
+            <ul>
+                <li><strong>Name:</strong> {{order.name}}</li>
+                <li><strong>Email:</strong> {{order.email}}</li>
+                <li><strong>Address:</strong> {{order.address}}</li>
+                <li><strong>Restaurant Name:</strong> {{order.restaurantName}}</li>
+            </ul>
 
-    <h3>Ordered Dishes:</h3>
+            <h3>Ordered Dishes:</h3>
 
-    <ul>
-        {{#each order.dish}}
-            <li>{{this.name}} - ${{this.price}}</li>
-        {{/each}}
-    </ul>
+            <ul>
+                {{#each order.dish}}
+                    <li>{{this.name}} - ${{this.price}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
 </div>

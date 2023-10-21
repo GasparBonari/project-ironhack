@@ -1,29 +1,32 @@
 <div id="login-form" style="margin-top: 150px; margin-left: 80px;">
+  <div class="row justify-content-center">
+    <div class="col-md-4 center-div">
+      <form action="/customer/CustomerLogin" method="POST" class="form-horizontal">
+        <h2>Customer Log In</h2>
+        <label>
+          <input
+            class="form-control mb-3"
+            type="text"
+            name="username"
+            placeholder="Username"
+          />
+        </label>
 
-  <form action="/customer/CustomerLogin" method="POST" class="form-horizontal">
-    <h2>Customer Log In</h2>
-    <label>
-      <input
-        class="form-control mb-3"
-        type="text"
-        name="username"
-        placeholder="Username"
-      />
-    </label>
+        <label>
+          <input
+            class="form-control mb-3"
+            type="password"
+            name="password"
+            placeholder="Password"
+          />
+        </label>
 
-    <label>
-      <input
-        class="form-control mb-3"
-        type="password"
-        name="password"
-        placeholder="Password"
-      />
-    </label>
+        <button class="btn btn-primary" type="submit">Log In</button>
 
-    <button class="btn btn-primary" type="submit">Log In</button>
-
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
-  </form>
+        {{#if errorMessage}}
+          <p class="error">{{errorMessage}}</p>
+        {{/if}}
+      </form>
+    </div>
+  </div>
 </div>
