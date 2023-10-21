@@ -41,6 +41,9 @@ function updateCartList() {
     // Add a delete button
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
+    deleteButton.classList.add("btn")
+    deleteButton.classList.add("btn-outline-danger")
+    deleteButton.style.margin = "10px"
     deleteButton.onclick = function () {
       removeFromCart(i);
     };

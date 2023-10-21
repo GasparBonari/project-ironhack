@@ -1,4 +1,4 @@
-<div class="row p-4" style="margin: 100px 0">
+<div class="row p-4" style="margin: 150px 0">
   <!-- Menu -->
   <div class="col-md-8">
 
@@ -6,7 +6,7 @@
       <h2>Menu</h2>
 
       <div class="text-left">
-        <a href="/" class="btn btn-secondary">Back to Restaurants</a>
+        <a href="/" class="btn btn-outline-dark">Back to Restaurants</a>
       </div>
     </div>
 
@@ -25,10 +25,7 @@
               <p class="card-text">Price: ${{price}}</p>
               <p class="card-text">Total: ${{total}}</p>
             </div>
-            <button
-              class="btn btn-primary"
-              onclick="addToCart('{{name}}', {{price}})"
-            >Cart</button>
+            <button class="m-4 btn btn-primary btn-lg btn-block" onclick="addToCart('{{name}}', {{price}})">Add</button>
           </div>
         </div>
       {{/each}}
@@ -36,7 +33,7 @@
   </div>
 
   <!-- Cart -->
-  <div class="col-md-4 border rounded p-3 mt-5">
+  <div class="col-md-4 border rounded p-3 mt-5" style="background-color: #ffffffde;">
     <h2>Cart</h2>
     <ul id="cart-list" class="list-unstyled"></ul>
 
@@ -96,7 +93,7 @@
 
       <div class="text-right mt-3">
         <button
-          class="btn btn-primary"
+          class="btn btn-primary btn-checkout"
           type="submit"
           class="btn btn-primary"
         >Checkout</button>

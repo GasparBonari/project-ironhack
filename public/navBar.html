@@ -1,8 +1,8 @@
-<nav class="navbar px-4">
+<nav class="navbar">
   <div class="btn-group dropdown">
     <button
       type="button"
-      class="btn btn-secondary dropdown-toggle"
+      class="btn btn-outline-dark dropdown-toggle"
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
@@ -10,7 +10,7 @@
     >
       Management
     </button>
-    <div class="dropdown-menu dropdown-menu-right">
+    <div class="dropdown-menu dropdown-menu-right transparent">
       <div class="accordion" id="managementAccordion">
         <button
           class="dropdown-item"
@@ -38,7 +38,7 @@
             class="dropdown-item"
             href="/"
             onclick="event.preventDefault();
-    document.getElementById('managerLogout-form').submit();"
+            document.getElementById('managerLogout-form').submit();"
           >
             Logout
           </a>
@@ -70,14 +70,12 @@
             class="dropdown-item"
             href="/"
             onclick="event.preventDefault();
-    document.getElementById('courierLogout-form').submit();"
+            document.getElementById('courierLogout-form').submit();"
           >
             Logout
           </a>
         </div>
       </div>
-
-      <button class="dropdown-item" type="button">Become a partner</button>
     </div>
   </div>
 
@@ -88,18 +86,17 @@
   <div class="btn-group dropdown" style="float: right">
     <button
       type="button"
-      class="btn btn-secondary dropdown-toggle"
+      class="btn btn-outline-dark dropdown-toggle"
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
     >
       Customer
     </button>
-    <div class="dropdown-menu dropdown-menu-right">
+    <div class="dropdown-menu dropdown-menu-right transparent">
       <a class="dropdown-item" href="/customer/customerLogin">Log in</a>
       <a class="dropdown-item" href="/customer/customerSignup">Sign up</a>
       <a class="dropdown-item" href="/customer/customerProfile">Profile</a>
-      <!--Use link to trigger logout form in footer-->
       <a
         class="dropdown-item"
         href="/"

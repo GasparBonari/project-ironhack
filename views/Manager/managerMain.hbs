@@ -1,6 +1,6 @@
-{{#if userInSession}}
-<div class="form-horizontal">
-  <h1 style="margin-top: 150px;">Manager Dashboard!</h1>
+<div class="form-horizontal" style="margin-top: 150px; padding: 20px">
+  {{#if userInSession}}
+  <h1>Manager Dashboard!</h1>
 
   <div class="accordion" id="accordionExample">
     <div class="accordion-item">
@@ -207,11 +207,8 @@
       </div>
     </div>
   </div>
-</div>
+  
   {{else}}
-
-    <br /><p>You need to login to access this page!</p>
-
+    <p style="margin-top: 150px;">You need to login to access this page!</p>
   {{/if}}
-
 </div>
