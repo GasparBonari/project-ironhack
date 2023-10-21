@@ -1,12 +1,12 @@
-{{#if userInSession}}
-
+<div class="row justify-content-center" style="margin: 150px 0 40px 0;">
+  <div class="col-md-6 center-div">
+  {{#if userInSession}}
   <form
     action="/customer/{{userInSession._id}}/edit"
     method="post"
     class="form-horizontal m-3"
   >
-    <h2 style="margin-top: 150px; margin-left: 30px;">Edit Customer:
-      {{userInSession.username}}</h2>
+    <h2 style="padding: 20px">Edit Customer: {{userInSession.username}}</h2>
     <label>
       eMail:
       <input
@@ -81,8 +81,10 @@
       {{userInSession.username}}</button>
   </form>
 
-{{else}}
+  {{else}}
 
-  <br /><p>Still no logged in user, sorry!</p>
+    <br /><p>Still no logged in user, sorry!</p>
 
-{{/if}}
+  {{/if}}
+  </div>
+</div>

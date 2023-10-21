@@ -1,19 +1,19 @@
 <div class="start-page">
   <header>
     <div class="text-container">
-        <div class="title">OverEat</div>
+      <div class="title">OverEat</div>
     </div>
     <div class="line"></div>
     <div class="image-container">
-        <img src="/images/header.gif">
+      <img src="/images/header.gif">
     </div>
   </header>
 
   <div class="container_mouse" onclick="scrollToGreet()">
-      <span class="mouse-btn">
-          <span class="mouse-scroll"></span>
-      </span>
-      <span>Scroll Down</span>
+    <span class="mouse-btn">
+      <span class="mouse-scroll"></span>
+    </span>
+    <span>Scroll Down</span>
   </div>
 </div>
 
@@ -22,11 +22,11 @@
   {{userInSession.username}}
 </h2>
 
-<ul class="list-group mt-4 p-4" style="list-style: none;">
+<ul class="list-group mt-4 p-5" style="list-style: none;">
   {{#each restaurants}}
     <li class="mb-3" style="cursor: pointer;">
       <a href="/restaurants/{{_id}}" class="text-decoration-none">
-        <div class="card border-dark shadow">
+        <div class="card border-dark shadow card1">
           <div class="row g-0">
             <div class="col-md-3">
               <img
