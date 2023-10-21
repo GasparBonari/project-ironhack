@@ -8,6 +8,14 @@ body {
   background-attachment: fixed;
 }
 
+h1{
+  font-size: 5em;
+}
+
+h2{
+  font-size: 2em;
+}
+
 @keyframes gradient {
   0% {
       background-position: 0% 0%;
@@ -126,6 +134,11 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 30px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 }
 
 .text-container {
