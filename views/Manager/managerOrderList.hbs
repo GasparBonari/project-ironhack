@@ -20,14 +20,18 @@
                         >Delete order</button>
                       </form>
                       <h2 class="card-title">Order details:</h2>
-                      <p class="card-text">Name: {{name}} (Order-Id: {{_id}})</p>
+                      <p class="card-text">Name:
+                        {{name}}
+                        (Order-Id:
+                        {{_id}})</p>
                       <p class="card-text">eMail: {{email}}</p>
                       <p class="card-text">Address: {{address}}</p>
                       <p class="card-text">Restaurant: {{restaurantName}}</p>
+                      <p class="card-text fw-bold">Dish:</p>
                       {{#each dish}}
-                        <p class="card-text">Dish: {{name}}</p>
-                        <p class="card-text">Price: {{price}}</p>
+                        <p class="card-text">{{price}}€ - {{name}}</p>
                       {{/each}}
+                      <h4 class="card-text fw-bold">Total: {{total}}€</h4>
                     </div>
                   </div>
                 </div>

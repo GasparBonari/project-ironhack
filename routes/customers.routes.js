@@ -131,15 +131,7 @@ router.post("/customerSignup", (req, res, next) => {
     .then((customerFromDB) => {
       console.log("Newly created user is: ", customerFromDB);
       //res.redirect("/customer/customerLogin");
-      res.render("protected/customerCreated");
-      //console.log("Response statusCode: ", res.statusCode);
-      if (res.statusCode !== 200) {
-        res.render("protected/customerCreated", {
-          customer: customerFromDB,
-        });
-      } else {
-        res.render("/auth/customerLogin");
-      }
+      return res.render("protected/customerCreated");
     })
     .catch((error) => {
       if (error) {

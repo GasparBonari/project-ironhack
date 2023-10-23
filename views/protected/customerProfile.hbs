@@ -22,7 +22,13 @@
       <p><spam class="fw-bold">Order history:</spam>
       <ul>
         {{#each userInSession.order}}
-          <li><span class="fw-bold">Restaurant:</span> {{this.name}}</li>
+          <li><span class="fw-bold">Total:  {{this.total}} €</span> | Restaurant: {{this.name}}</li>
+          <ul>
+          {{#each dish}}
+          <li><span class="fw-bold">Dish:</span> {{this.price}} €: {{this.name}}</li>
+          {{/each}}
+          </ul>
+          <hr />
         {{/each}}
       </ul>
       <hr />

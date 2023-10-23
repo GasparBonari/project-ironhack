@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const Restaurant = require('../models/Restaurant.model.js');
+const Restaurant = require("../models/Restaurant.model.js");
 const Order = require("../models/Order.model.js");
 const Customer = require("../models/Customer.model.js");
-
 
 // Render the index.hbs template
 router.get("/", async (req, res) => {
@@ -31,24 +30,22 @@ router.get("/restaurants/:id", async (req, res) => {
       restaurant,
       userInSession: req.session.currentUser,
     });
-
-  
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
   }
 });
 
-router.post('/updateCart', (req, res) => {
+router.post("/updateCart", (req, res) => {
   const { cartItems } = req.body;
 
   // Save the cartItems in the session
   req.session.cartItems = cartItems;
 
-  res.json({ message: 'Cart updated successfully' });
+  res.json({ message: "Cart updated successfully" });
 });
 
-router.post('/checkout', async (req, res) => {
+router.post("/checkout", async (req, res) => {
   try {
     const { name, email, street, restaurantName, total } = req.body;
 
@@ -62,6 +59,7 @@ router.post('/checkout', async (req, res) => {
       address: street,
       restaurantName,
       dish: cartItems,
+      total,
     });
 
     // Save the order to the Order model
@@ -72,7 +70,11 @@ router.post('/checkout', async (req, res) => {
     const customer = await Customer.findById(customerId);
 
     // Add only the restaurantName to the customer's order array
-    customer.order.push({ name: restaurantName });
+    customer.order.push({
+      name: restaurantName,
+      dish: cartItems,
+      total: total,
+    });
 
     // Save the updated customer document
     await customer.save();
@@ -80,12 +82,10 @@ router.post('/checkout', async (req, res) => {
     // Clear the cartItems from the session after the order is placed
     req.session.cartItems = [];
 
-    res.render('checkoutConfirmation', { order });
-  }
-  catch (error) 
-  {
-    console.error('Error processing checkout:', error);
-    res.status(500).send('Internal Server Error');
+    res.render("checkoutConfirmation", { order });
+  } catch (error) {
+    console.error("Error processing checkout:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 

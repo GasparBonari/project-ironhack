@@ -41,9 +41,9 @@ function updateCartList() {
     // Add a delete button
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
-    deleteButton.classList.add("btn")
-    deleteButton.classList.add("btn-outline-danger")
-    deleteButton.style.margin = "10px"
+    deleteButton.classList.add("btn");
+    deleteButton.classList.add("btn-outline-danger");
+    deleteButton.style.margin = "10px";
     deleteButton.onclick = function () {
       removeFromCart(i);
     };
@@ -65,6 +65,7 @@ function updateTotalAmount() {
     .reduce((total, item) => total + item.price, 0)
     .toFixed(2);
   totalAmountElement.textContent = totalAmount;
+  document.getElementById("totalAmountField").value = totalAmount;
 }
 
 function removeFromCart(index) {

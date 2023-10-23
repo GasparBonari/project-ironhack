@@ -12,11 +12,18 @@
                   <p class="card-text">Name: {{name}} (Order-Id: {{_id}})</p>
                   <p class="card-text">eMail: {{email}}</p>
                   <p class="card-text">Address: {{address}}</p>
-                  <p class="card-text">Restaurant: {{restaurantName}}</p>
-                  {{#each dish}}
-                    <p class="card-text">Dish: {{name}}</p>
-                    <p class="card-text">Price: {{price}}</p>
-                  {{/each}}
+                  <p class="card-text fw-bold">Total:
+                    {{total}}
+                    € - Restaurant:
+                    {{restaurantName}}</p>
+                  <ul>
+                    {{#each dish}}
+                      <li><p class="card-text">Dish:
+                          {{price}}
+                          € -
+                          {{name}}</p></li>
+                    {{/each}}
+                  </ul>
                 </div>
               </div>
             </div>
