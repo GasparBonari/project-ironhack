@@ -58,9 +58,16 @@ const customerSchema = new Schema(
     },
     order: [
       {
-        name: {type: String},
-      }
-   ],
+        name: { type: String },
+        dish: [
+          {
+            name: String,
+            price: Number,
+          },
+        ],
+        total: Number,
+      },
+    ],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
